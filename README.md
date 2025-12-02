@@ -21,9 +21,11 @@ This system implements first of all a bat-like enemy using a component-based sta
 2. **Enemy** changes state depending on the components.
 3. **State** controls movement by setting `velocity`.
 
-=> allows for component compositions like LEGO e.g. SoundSensor and LightAvoidance for Bat, LightAvoidance for Sceletons,
+=> allows for component compositions like LEGO e.g. SoundSensor and LightAvoidance for Bat + e.g. InSightComponent for Sceletons, LightAttraction and SoundFear for Animal, LightAvoidance for shadow creatures,...
 
-!NOTE: currently state change not properly implemented...needs behaviour in specific EnemyStates not Component (just temp)
+!NOTE! 
+-currently state change not properly implemented...needs behaviour in specific EnemyStates not Component (just temp) 
+- Player is just dummy with space for particle and shift for beam
 
 TODO:
 
