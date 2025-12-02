@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://dsknksod3q00j"]
+
+[ext_resource type="Script" uid="uid://b8t62f0ypv64b" path="res://scripts/Enemies/Bat/Bat.gd" id="1_h2yge"]
+[ext_resource type="Script" uid="uid://csp3oq2glxkg5" path="res://Player.gd" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://dkuykcke747ed" path="res://icon.svg" id="2_1bvp3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lquwl"]
+size = Vector2(61, 61)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h2yge"]
+radius = 20.0
+height = 52.0
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Bat" type="CharacterBody2D" parent="."]
+script = ExtResource("1_h2yge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bat"]
+position = Vector2(-2.5, -0.5)
+shape = SubResource("RectangleShape2D_lquwl")
+
+[node name="Sprite2D" type="Sprite2D" parent="Bat"]
+position = Vector2(-2.0000038, -3.8146973e-06)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_1bvp3")
+
+[node name="Player" type="CharacterBody2D" parent="." groups=["Player"]]
+position = Vector2(146, 63)
+script = ExtResource("1_ig7tw")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("CapsuleShape2D_h2yge")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+self_modulate = Color(1, 0.4, 0, 1)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_1bvp3")
