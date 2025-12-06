@@ -1,9 +1,6 @@
-<<<<<<< HEAD
-# Godot 4+ specific ignores
 .godot/
 /android/
-=======
 .import/
 .export/
 *.translation
->>>>>>> cb10760fa5b9708456d08d16b83e78f3172b1079
+.DS_Store
