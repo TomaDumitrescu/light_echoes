@@ -8,6 +8,7 @@ const FOREGROUND_LAYER = 1
 
 const ROCK_ID = 2
 const BACKGROUND_ID = 3
+const EXIT_ID = 4
 
 var map_width = 0
 var map_height = 0
@@ -23,6 +24,8 @@ func create(map):
 				set_cell(FOREGROUND_LAYER, tile_position, ROCK_ID, Vector2i(0, 0))
 			elif map[x][y] == MapGenerator.FLOOR:
 				set_cell(BACKGROUND_LAYER, tile_position, BACKGROUND_ID, Vector2i(0, 0))
+			elif map[x][y] == MapGenerator.EXIT:
+				set_cell(FOREGROUND_LAYER, tile_position, EXIT_ID, Vector2i(0, 0), 1)
 			
 	for x in range(-1, map_width):	
 		set_cell(FOREGROUND_LAYER, Vector2i(x, -1), ROCK_ID, Vector2i(0, 0))

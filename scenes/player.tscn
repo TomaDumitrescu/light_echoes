@@ -14,3 +14,8 @@ texture = ExtResource("2_34cvd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_pv05k")
+
+[node name="NextLevelTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="NextLevelTimer" to="." method="_on_next_level_timer_timeout"]

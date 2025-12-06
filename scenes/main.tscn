@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://lxq0vdvat0lp"]
+[gd_scene load_steps=17 format=3 uid="uid://lxq0vdvat0lp"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_aabo0"]
 [ext_resource type="PackedScene" uid="uid://c3k7pmdnlra0e" path="res://scenes/player.tscn" id="2_723de"]
 [ext_resource type="Texture2D" uid="uid://dx36vc0te04h" path="res://textures/rock.jpg" id="3_ppfhr"]
 [ext_resource type="Texture2D" uid="uid://b4a3u1x3qgxu1" path="res://textures/background.jpg" id="4_4yllr"]
+[ext_resource type="PackedScene" uid="uid://bpyhljgrin8ap" path="res://scenes/exit.tscn" id="4_bjw6p"]
 [ext_resource type="Script" path="res://scripts/map.gd" id="4_m2cq4"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="6_fibjp"]
 [ext_resource type="Texture2D" uid="uid://lo2rfsyyrbd0" path="res://textures/minimap_tile.jpg" id="7_whxs8"]
@@ -26,12 +27,16 @@ texture_region_size = Vector2i(64, 64)
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
 
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_ix8fw"]
+scenes/1/scene = ExtResource("4_bjw6p")
+
 [sub_resource type="TileSet" id="TileSet_geelr"]
 tile_size = Vector2i(64, 64)
 physics_layer_0/collision_layer = 1
 physics_layer_0/physics_material = SubResource("PhysicsMaterial_3ptkp")
 sources/2 = SubResource("TileSetAtlasSource_6fxkc")
 sources/3 = SubResource("TileSetAtlasSource_ydvc8")
+sources/4 = SubResource("TileSetScenesCollectionSource_ix8fw")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c0gbj"]
 texture = ExtResource("7_whxs8")
@@ -49,6 +54,7 @@ script = ExtResource("1_aabo0")
 tile_set = SubResource("TileSet_geelr")
 format = 2
 layer_0/name = "background"
+layer_0/tile_data = PackedInt32Array(65537, 4, 65536, 65538, 4, 65536, 2, 4, 65536, 3, 4, 65536, 1, 4, 65536, 0, 4, 65536, -1, 4, 65536, -2, 4, 65536, -65537, 4, 65536, -131072, 4, 65536, -131071, 4, 65536, -65536, 4, 65536, 65535, 4, 65536, 65534, 4, 65536, -65538, 4, 65536)
 layer_1/name = "foreground"
 layer_1/tile_data = PackedInt32Array()
 script = ExtResource("4_m2cq4")
@@ -65,3 +71,19 @@ tile_set = SubResource("TileSet_elsag")
 format = 2
 layer_0/modulate = Color(1, 1, 1, 0.501961)
 script = ExtResource("8_u66ay")
+
+[connection signal="body_entered" from="TileMap/Exit" to="TileMap/Exit" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@40379" to="TileMap/@Area2D@40379" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@40380" to="TileMap/@Area2D@40380" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@40381" to="TileMap/@Area2D@40381" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@40382" to="TileMap/@Area2D@40382" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@40383" to="TileMap/@Area2D@40383" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@40384" to="TileMap/@Area2D@40384" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@40385" to="TileMap/@Area2D@40385" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@40386" to="TileMap/@Area2D@40386" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@40387" to="TileMap/@Area2D@40387" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@40388" to="TileMap/@Area2D@40388" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@40389" to="TileMap/@Area2D@40389" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@40390" to="TileMap/@Area2D@40390" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@40391" to="TileMap/@Area2D@40391" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@40392" to="TileMap/@Area2D@40392" method="_on_body_entered"]

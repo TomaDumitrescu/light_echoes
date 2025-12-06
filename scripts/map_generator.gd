@@ -3,8 +3,9 @@ extends Node
 
 const WALL := 1
 const FLOOR := 0
+const EXIT := 2
 
-@export var width := 128
+@export var width := 64
 @export var height := 64
 @export var random_fill_percent := 45
 @export var smoothing_iterations := 5
@@ -13,7 +14,7 @@ const FLOOR := 0
 
 var map := []
 
-func get_player_cell() -> Vector2i: 
+func get_empty_cell() -> Vector2i: 
 	var col = randi_range(0, width-1) 
 	var row = randi_range(0, height-1) 
 	while(not is_walkable(col, row)): 
@@ -30,6 +31,11 @@ func generate_map() -> void:
 	for i in smoothing_iterations:
 		smooth_map()
 	process_map()
+	add_exit()
+	
+func add_exit():
+	var cell = get_empty_cell()
+	map[cell.x][cell.y] = EXIT
 
 # ----------------------------------------
 # RANDOM FILL

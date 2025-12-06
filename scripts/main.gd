@@ -12,7 +12,7 @@ func _ready():
 	position_player(map_generator)
 
 func position_player(map_generator: MapGenerator):
-	var player_cell = map_generator.get_player_cell()
+	var player_cell = map_generator.get_empty_cell()
 	player.global_position = player_cell * Map.TILE_SIZE
 	
 func on_target_reached():
