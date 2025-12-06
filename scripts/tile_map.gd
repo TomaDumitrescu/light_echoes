@@ -1,10 +1,11 @@
 extends TileMap
+class_name WorldMap
 
-var block_threshold = 0.5
-var tile_size = 64
-var map_width = 128
-var map_height = 64
-var noise_scale = 0.1
+const block_threshold = 0.5
+const tile_size = 64
+const map_width = 128
+const map_height = 64
+const noise_scale = 0.1
 
 const BACKGROUND_LAYER = 0
 const FOREGROUND_LAYER = 1
@@ -14,6 +15,7 @@ const BACKGROUND_ID = 3
 
 func generate_map():
 	clear()
+	
 	var noise = FastNoiseLite.new()
 	noise.seed = randi()
 	noise.noise_type = FastNoiseLite.TYPE_PERLIN

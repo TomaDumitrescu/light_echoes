@@ -1,10 +1,12 @@
 extends Node2D
 
-@onready var tilemap: TileMap = $TileMap
+@onready var tilemap: WorldMap = $TileMap
 @onready var player: Player = $Player
+@onready var minimap: MiniMap = $MiniMap
 
 func _ready():
 	tilemap.generate_map()
+	minimap.init_explored(tilemap.map_width, tilemap.map_height)
 	position_player()
 	#tilemap.generate_target()
 
