@@ -63,5 +63,11 @@ func add_ground_elements(ground_markers: Array[Vector2i], player_pos: Vector2i):
 func add_ceiling_elements(ceiling_markers: Array[Vector2i], player_pos: Vector2i):
 	var filtered_markers = filter_markers(ceiling_markers, player_pos)
 	# DEBUG visualize
-	#for ground_marker in filtered_markers:
-		#set_cell(BACKGROUND_LAYER, ground_marker, -1, Vector2i(-1, -1), -1)
+	#for ceiling_marker in filtered_markers:
+		#set_cell(BACKGROUND_LAYER, ceiling_marker, -1, Vector2i(-1, -1), -1)
+
+func add_side_elements(side_markers: Array[Vector2i], player_pos: Vector2i):
+	var filtered_markers = filter_markers(side_markers, player_pos)
+	# DEBUG visualize
+	#for side_marker in filtered_markers:
+		#set_cell(BACKGROUND_LAYER, side_marker, -1, Vector2i(-1, -1), -1)

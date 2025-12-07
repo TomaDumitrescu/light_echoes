@@ -11,9 +11,13 @@ func _ready():
 	map_generator.add_markers()
 	minimap.init_explored(map_generator.width, map_generator.height)
 	position_player(map_generator)
+	add_markers_on_map(map_generator)
+
+func add_markers_on_map(map_generator):
 	map.add_air_elements(map_generator.air_markers, player.global_position / Map.TILE_SIZE)
 	map.add_ground_elements(map_generator.ground_markers, player.global_position / Map.TILE_SIZE)
 	map.add_ceiling_elements(map_generator.ceiling_markers, player.global_position / Map.TILE_SIZE)
+	map.add_side_elements(map_generator.side_markers, player.global_position / Map.TILE_SIZE)
 
 func position_player(map_generator: MapGenerator):
 	var player_cell = null

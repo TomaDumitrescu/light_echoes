@@ -21,6 +21,7 @@ var map := []
 var ground_markers: Array[Vector2i] = []
 var air_markers: Array[Vector2i] = []
 var ceiling_markers: Array[Vector2i] = []
+var side_markers: Array[Vector2i] = []
 var exit_cell: Vector2i
 
 func get_empty_cell() -> Vector2i: 
@@ -204,6 +205,7 @@ func add_markers():
 
 	var ground_tiles: Array[Vector2i] = []
 	var ceiling_tiles: Array[Vector2i] = []
+	var side_tiles: Array[Vector2i] = []
 	for row in range(height):
 		for column in range(width):
 			if !is_walkable(row, column):
@@ -215,6 +217,7 @@ func add_markers():
 			if is_ground1 and is_ground2 and is_ground3:
 				if map[row][column + 1] == WALL and map[row + 1][column + 1] == WALL and map[row - 1][column + 1] == WALL:
 					ground_tiles.append(Vector2i(row, column))
+					continue
 
 			var is_ceil1 = is_in_map(column - 1, row - 1, width, height)
 			var is_ceil2 = is_in_map(column - 1, row + 1, width, height)
@@ -222,50 +225,45 @@ func add_markers():
 			if is_ceil1 and is_ceil2 and is_ceil3:
 				if map[row - 1][column - 1] == WALL and map[row + 1][column - 1] == WALL and map[row][column - 1] == WALL:
 					ceiling_tiles.append(Vector2i(row, column))
+					continue
 
-	for i in range(ground_tiles.size() - 1, -1, -1):
-		for j in range(ceiling_tiles.size() - 1, -1, -1):
-			if ground_tiles[i] == ceiling_tiles[j]:
-				var rand_rm = randi_range(0, 1)
-				if rand_rm == 0:
-					ceiling_tiles.remove_at(j)
-				else:
-					ground_tiles.remove_at(i)
-					break
+			var is_side1 = is_in_map(column - 1, row - 1, width , height)
+			var is_side2 = is_in_map(column + 1, row - 1, width , height)
+			var is_side3 = is_in_map(column, row - 1, width , height)
+			if is_side1 and is_side2 and is_side3:
+				if map[row - 1][column - 1] == WALL and map[row - 1][column + 1] and map[row - 1][column]:
+					side_tiles.append(Vector2i(row, column))
+					continue
 
-	var random_noground = randi_range(min_wall_markers, max_wall_markers)
+			is_side1 = is_in_map(column - 1, row + 1, width , height)
+			is_side2 = is_in_map(column + 1, row + 1, width , height)
+			is_side3 = is_in_map(column, row + 1, width , height)
+			if is_side1 and is_side2 and is_side3:
+				if map[row + 1][column - 1] == WALL and map[row + 1][column + 1] and map[row + 1][column]:
+					side_tiles.append(Vector2i(row, column))
+					continue
+
+	random_array_picker(ground_tiles, ground_markers)
+	random_array_picker(ceiling_tiles, ceiling_markers)
+	random_array_picker(side_tiles, side_markers)
+
+func random_array_picker(specific_tiles: Array[Vector2i], ref_markers: Array[Vector2i]):
+	var random_no = randi_range(min_wall_markers, max_wall_markers)
 	var max_iterations = 100
-	while max_iterations > 0 and random_noground > 0:
+	while max_iterations > 0 and random_no > 0:
 		max_iterations -= 1
-		var i = randi_range(0, ground_tiles.size() - 1)
+		var i = randi_range(0, specific_tiles.size() - 1)
 		var ok_distance = true
-		for marker in ground_markers:
-			if marker.distance_to(ground_tiles[i]) <= markers_spread:
+		for marker in ref_markers:
+			if marker.distance_to(specific_tiles[i]) <= markers_spread:
 				ok_distance = false
 				break
 
 		if ok_distance == false:
 			continue
 
-		ground_markers.append(ground_tiles[i])
-		random_noground -= 1
-
-	var random_noceiling = randi_range(min_wall_markers, max_wall_markers)
-	max_iterations = 100
-	while max_iterations > 0 and random_noceiling > 0:
-		max_iterations -= 1
-		var i = randi_range(0, ceiling_tiles.size() - 1)
-		var ok_distance = true
-		for marker in ceiling_markers:
-			if marker.distance_to(ceiling_tiles[i]) <= markers_spread:
-				ok_distance = false
-				break
-
-		if ok_distance == false:
-			continue
-
-		ceiling_markers.append(ceiling_tiles[i])
-		random_noceiling -= 1
+		ref_markers.append(specific_tiles[i])
+		random_no -= 1
 
 # ----------------------------------------
 # ROOM + CONNECTIONS
