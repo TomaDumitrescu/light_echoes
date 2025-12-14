@@ -19,6 +19,7 @@ var timer
 var hearts_list: Array[TextureRect]
 var health = 3
 
+var dead = false
 
 func _ready():
 	add_to_group("player")
@@ -81,10 +82,17 @@ func get_beam_direction():
 	return aim_dir
 	
 func take_damage():
-	if health > 0:
+	if health > 1:
 		health -= 1
 		update_heart_display()
-		
+	else:
+		die()
+
+func die():
+	if not dead:
+		dead = true
+		get_tree().change_scene_to_file("res://scenes/game_over.tscn")
+
 func update_heart_display():
 	for i in range(hearts_list.size()):
 		hearts_list[i].visible = i < health
@@ -102,7 +110,6 @@ func apply_status_effect(effect: String):
 		slimed = true
 		timer = SLIMED_TIMER
 		PlayerStats.add_effect("slimed")
-		
 		
 func remove_status_effect(effect: String):
 	if (effect == "webbed"):

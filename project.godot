@@ -11,12 +11,17 @@ config_version=5
 [application]
 
 config/name="big_project"
-run/main_scene="uid://lxq0vdvat0lp"
+run/main_scene="uid://cukmhkb7vgxxy"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 
 [autoload]
 
 PlayerStats="*res://scripts/Singleton/PlayerStats.gd"
+
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [global_group]
 

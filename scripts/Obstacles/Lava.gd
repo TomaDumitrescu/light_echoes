@@ -21,7 +21,7 @@ func _process(delta: float) -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		bodies_in_lava.append(body)
-		get_tree().call_deferred("reload_current_scene")
+		body.die()
 	if body.is_in_group("enemy") and body.is_visible_on_screen:
 		body.queue_free()
 		print("Lava killed enemy (+10 points)")

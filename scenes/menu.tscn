@@ -1,0 +1,58 @@
+[gd_scene load_steps=4 format=3 uid="uid://cukmhkb7vgxxy"]
+
+[ext_resource type="Script" uid="uid://db0nggb4scm7s" path="res://scripts/menu.gd" id="1_con2f"]
+[ext_resource type="Texture2D" uid="uid://b4a3u1x3qgxu1" path="res://textures/background.jpg" id="1_vjb58"]
+
+[sub_resource type="FontVariation" id="FontVariation_con2f"]
+variation_embolden = 0.63
+spacing_glyph = 10
+spacing_space = 8
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_con2f")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_vjb58")
+stretch_mode = 1
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_top = 130.0
+offset_right = 1148.0
+offset_bottom = 218.0
+theme_override_colors/font_color = Color(1, 1, 0.38431373, 1)
+theme_override_fonts/font = SubResource("FontVariation_con2f")
+theme_override_font_sizes/font_size = 64
+text = "Light Echoes"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.5
+offset_top = -40.5
+offset_right = 130.5
+offset_bottom = 40.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "Play"
+
+[connection signal="button_down" from="PlayButton" to="." method="_on_play_button_button_down"]

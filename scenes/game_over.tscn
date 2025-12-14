@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://gagj4viay8wt"]
+
+[ext_resource type="Script" uid="uid://chfwy76x005j3" path="res://scripts/game_over.gd" id="1_tbwuq"]
+[ext_resource type="Texture2D" uid="uid://b4a3u1x3qgxu1" path="res://textures/background.jpg" id="1_wqhvx"]
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_tbwuq")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1153.0
+offset_bottom = 649.0
+texture = ExtResource("1_wqhvx")
+stretch_mode = 1
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 38.0
+offset_right = 1152.0
+offset_bottom = 162.0
+theme_override_font_sizes/font_size = 48
+text = "You died!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MenuButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 396.0
+offset_top = 335.0
+offset_right = 750.0
+offset_bottom = 393.0
+theme_override_font_sizes/font_size = 36
+text = "Menu"
+
+[node name="RetryButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 396.0
+offset_top = 232.0
+offset_right = 751.0
+offset_bottom = 290.0
+theme_override_font_sizes/font_size = 36
+text = "Play again
+"
+
+[connection signal="button_down" from="MenuButton" to="." method="_on_menu_button_button_down"]
+[connection signal="button_down" from="RetryButton" to="." method="_on_retry_button_button_down"]
