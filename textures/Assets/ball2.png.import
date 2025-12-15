@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://862thotdvnjq"
-path="res://.godot/imported/SwoopingBat.png-b4bf764fe81f0869ad2ba303a63506a4.ctex"
+uid="uid://kjnkpxy2h384"
+path="res://.godot/imported/ball2.png-ff17546e1c883068903218c013b0d2e5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/Enemies/SwoopingBat.png"
-dest_files=["res://.godot/imported/SwoopingBat.png-b4bf764fe81f0869ad2ba303a63506a4.ctex"]
+source_file="res://textures/Assets/ball2.png"
+dest_files=["res://.godot/imported/ball2.png-ff17546e1c883068903218c013b0d2e5.ctex"]
 
 [params]
 

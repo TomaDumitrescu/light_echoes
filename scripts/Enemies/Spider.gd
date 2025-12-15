@@ -51,13 +51,13 @@ func _on_player_released(player):
 	
 func perform_idle(delta):
 	velocity = Vector2.ZERO
-	update_sprite_and_ray("idle","left")
+	update_sprite_and_ray("moving","left")
 		
 
 func perform_chase(delta):
 	if player_is_trapped:
 		velocity = direction * SPEED
-		update_sprite_and_ray("chase","left")
+		update_sprite_and_ray("moving","left")
 		move_and_slide()
 
 func perform_attack(delta):
@@ -68,7 +68,7 @@ func perform_attack(delta):
 		bite()
 		attack_cooldown.start()
 		velocity = direction * SPEED
-		update_sprite_and_ray("attack","left")
+		update_sprite_and_ray("moving","left")
 		move_and_slide()
 		
 func bite():

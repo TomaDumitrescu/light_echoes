@@ -32,7 +32,7 @@ func _process(delta: float) -> void:
 	var tex = sprite.sprite_frames.get_frame_texture("growing", sprite.frame)
 	var sprite_height = tex.get_height()
 	
-	sprite.scale = Vector2(3, current_scale)	#3 as width of plant
+	sprite.scale = Vector2(current_scale, current_scale)	#3 as width of plant
 	sprite.position = Vector2(0, - (sprite_height * (current_scale - 1)) / 2.0) #fixed position
 	
 	update_collider(sprite_height)

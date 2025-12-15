@@ -1,56 +1,70 @@
-[gd_scene load_steps=10 format=3 uid="uid://b0pemm38d52rc"]
+[gd_scene load_steps=12 format=3 uid="uid://b0pemm38d52rc"]
 
 [ext_resource type="PackedScene" uid="uid://ddtw1de31gtve" path="res://scenes/EnemyTemplate/EnemyBase.tscn" id="1_44oqs"]
 [ext_resource type="Script" uid="uid://b8fyvx6sy0w4m" path="res://scripts/Enemies/Stalactite.gd" id="2_bh30o"]
-[ext_resource type="Texture2D" uid="uid://drq1wliajd0ew" path="res://textures/Enemies/Old-AOE.png" id="3_1alj7"]
+[ext_resource type="Texture2D" uid="uid://1lvvyyeuhpii" path="res://textures/Assets/SpikeFalling.png" id="3_f4hew"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_mq3ix"]
-atlas = ExtResource("3_1alj7")
-region = Rect2(192, 144, 48, 48)
+[sub_resource type="AtlasTexture" id="AtlasTexture_f4hew"]
+atlas = ExtResource("3_f4hew")
+region = Rect2(0, 64, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_awa1b"]
-atlas = ExtResource("3_1alj7")
-region = Rect2(240, 144, 48, 48)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ds3om"]
+atlas = ExtResource("3_f4hew")
+region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dqlp6"]
-atlas = ExtResource("3_1alj7")
-region = Rect2(144, 144, 48, 48)
+[sub_resource type="AtlasTexture" id="AtlasTexture_36ja2"]
+atlas = ExtResource("3_f4hew")
+region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dfne6"]
-atlas = ExtResource("3_1alj7")
-region = Rect2(192, 144, 48, 48)
+[sub_resource type="AtlasTexture" id="AtlasTexture_wyyvv"]
+atlas = ExtResource("3_f4hew")
+region = Rect2(0, 32, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7dv5y"]
-atlas = ExtResource("3_1alj7")
-region = Rect2(192, 144, 48, 48)
+[sub_resource type="AtlasTexture" id="AtlasTexture_vow3w"]
+atlas = ExtResource("3_f4hew")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m48m8"]
+atlas = ExtResource("3_f4hew")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_17uie"]
+atlas = ExtResource("3_f4hew")
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5n2j5"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_mq3ix")
+"texture": SubResource("AtlasTexture_f4hew")
 }],
 "loop": true,
-"name": &"attack",
+"name": &"atack",
 "speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_awa1b")
+"texture": SubResource("AtlasTexture_ds3om")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_dqlp6")
+"texture": SubResource("AtlasTexture_36ja2")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_dfne6")
+"texture": SubResource("AtlasTexture_wyyvv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vow3w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m48m8")
 }],
-"loop": true,
-"name": &"chase",
+"loop": false,
+"name": &"falling",
 "speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7dv5y")
+"texture": SubResource("AtlasTexture_17uie")
 }],
 "loop": true,
 "name": &"idle",
@@ -66,6 +80,7 @@ FALL_PERCEPTION_RANGE = 500.0
 WAIT_UNTIL_IDLE = 3.0
 
 [node name="AnimatedSprite2D" parent="." index="1"]
+texture_filter = 1
 rotation = 3.1415927
 sprite_frames = SubResource("SpriteFrames_5n2j5")
-animation = &"attack"
+animation = &"falling"

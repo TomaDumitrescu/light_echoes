@@ -28,13 +28,13 @@ func _ready():
 		hearts_list.append(child)
 	
 func _process(delta):
-	sprite.play("default")
+	sprite.play("flying")
 	var input = Vector2(
 		Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
 		Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 	)
 	if input != Vector2.ZERO:
-		sprite.flip_h = input.x > 0
+		sprite.flip_h = !(input.x > 0)
 		velocity = input.normalized() * SPEED
 		aim_dir = input.normalized() 
 		
@@ -59,6 +59,15 @@ func _process(delta):
 	if Input.is_action_just_pressed("space"):   # space for party
 		particle_mode = !particle_mode
 		beam_mode = !beam_mode
+		
+		if(beam_mode):
+			sprite.play("to_particle")
+			print("Animacion 2")
+		else:
+			sprite.play("to_light")
+			print("Animacion 1")
+		
+			
 		mode_transition(sprite)
 		if sparkles: 
 			mode_transition(sparkles)

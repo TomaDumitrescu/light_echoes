@@ -2,6 +2,7 @@
 extends Area2D
 
 @onready var texture_rect: TextureRect = $TextureRect
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
 @export var speed: Vector3 = Vector3(0,50,10)
 var off: Vector3 = Vector3.ZERO
@@ -9,6 +10,7 @@ var bodies_in_lava = []
 
 func _ready() -> void:
 	bodies_in_lava = []
+	animated_sprite_2d.play("default")
 
 func _process(delta: float) -> void:
 	off += speed * delta

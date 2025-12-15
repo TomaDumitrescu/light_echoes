@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dtx357x8yw7ud"]
+[gd_scene load_steps=12 format=3 uid="uid://dtx357x8yw7ud"]
 
 [ext_resource type="Script" uid="uid://bunn6h528vx4o" path="res://scripts/Obstacles/Lava.gd" id="1_hsnng"]
+[ext_resource type="Texture2D" uid="uid://mlnohy6b8eqg" path="res://textures/Assets/Lava.png" id="2_ed3re"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nlui7"]
 size = Vector2(509, 511)
@@ -11,7 +12,7 @@ colors = PackedColorArray(0.5568628, 0, 0, 1, 0.7411765, 0.034640525, 0.01241830
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_rcvbr"]
 frequency = 0.004
-offset = Vector3(0, 5808.1367, 1161.816)
+offset = Vector3(0, 6186.7563, 1237.5532)
 fractal_type = 3
 fractal_octaves = 2
 fractal_lacunarity = 1.4
@@ -20,6 +21,42 @@ fractal_lacunarity = 1.4
 noise = SubResource("FastNoiseLite_rcvbr")
 color_ramp = SubResource("Gradient_ldk10")
 in_3d_space = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p3dpb"]
+atlas = ExtResource("2_ed3re")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p3f3q"]
+atlas = ExtResource("2_ed3re")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eduk3"]
+atlas = ExtResource("2_ed3re")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bm0nw"]
+atlas = ExtResource("2_ed3re")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o8ktg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p3dpb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p3f3q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eduk3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bm0nw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Area2D" type="Area2D"]
 scale = Vector2(0.2, 0.2)
@@ -30,9 +67,17 @@ position = Vector2(254.5, 255.5)
 shape = SubResource("RectangleShape2D_nlui7")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+visible = false
 offset_right = 40.0
 offset_bottom = 40.0
 texture = SubResource("NoiseTexture2D_uhooe")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(254.99998, 255)
+scale = Vector2(16, 16)
+sprite_frames = SubResource("SpriteFrames_o8ktg")
+frame_progress = 0.01384641
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://btxmj0ii8w6jo"
-path="res://.godot/imported/spritesheet_white_dove.png-48d1f444a351d3e6d44268f840f7d7db.ctex"
+uid="uid://b24imsyfywlnk"
+path="res://.godot/imported/Cobweb.png-bfa98778b2548686f78933ed4d244725.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/Enemies/spritesheet_white_dove.png"
-dest_files=["res://.godot/imported/spritesheet_white_dove.png-48d1f444a351d3e6d44268f840f7d7db.ctex"]
+source_file="res://textures/Assets/Cobweb.png"
+dest_files=["res://.godot/imported/Cobweb.png-bfa98778b2548686f78933ed4d244725.ctex"]
 
 [params]
 

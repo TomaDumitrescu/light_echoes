@@ -7,6 +7,7 @@
 script = ExtResource("1_n6qsb")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
 texture = ExtResource("2_0ngtr")
 region_enabled = true
 region_rect = Rect2(384.9001, 835.19995, 63.80002, 56.100037)

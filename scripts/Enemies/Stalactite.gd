@@ -26,7 +26,7 @@ func perform_idle(delta):
 
 func perform_chase(delta):
 	velocity = Vector2.ZERO
-	sprite.play("chase")
+	sprite.play("falling")
 	direction = (player.global_position - global_position).normalized()
 	ray.target_position = direction * PERCEPTION_RANGE
 	move_and_slide()

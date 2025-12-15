@@ -1,26 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://csm0m2enatdo8"]
+[gd_scene load_steps=6 format=3 uid="uid://csm0m2enatdo8"]
 
 [ext_resource type="Script" uid="uid://ct0xx8kjjeh8b" path="res://scripts/Enemies/SpiderWeb.gd" id="1_vms3v"]
-[ext_resource type="Texture2D" uid="uid://cgiyxoeuafe6r" path="res://textures/Enemies/Spider Sprite Sheet.png" id="2_ougtb"]
+[ext_resource type="Texture2D" uid="uid://b24imsyfywlnk" path="res://textures/Assets/Cobweb.png" id="2_vms3v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m1s0c"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qvxqg"]
-atlas = ExtResource("2_ougtb")
-region = Rect2(160, 224, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_l3244"]
-atlas = ExtResource("2_ougtb")
-region = Rect2(128, 224, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_vms3v"]
+atlas = ExtResource("2_vms3v")
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xty5j"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qvxqg")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_l3244")
+"texture": SubResource("AtlasTexture_vms3v")
 }],
 "loop": true,
 "name": &"default",
@@ -29,12 +22,14 @@ animations = [{
 
 [node name="Web" type="Area2D"]
 z_index = 1
+scale = Vector2(0.7, 0.7)
 script = ExtResource("1_vms3v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_m1s0c")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_xty5j")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

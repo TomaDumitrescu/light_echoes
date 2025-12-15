@@ -20,12 +20,12 @@ func perform_idle(delta):
 		velocity = velocity.move_toward(-direction * SPEED, 100 * delta)
 	else:	
 		velocity = Vector2.ZERO
-	update_sprite_and_ray("idle", "left")
+	update_sprite_and_ray("flying", "left")
 	move_and_slide()
 
 func perform_chase(delta):
 	velocity = velocity.move_toward(direction * SPEED, 100 * delta)
-	update_sprite_and_ray("chase", "left")
+	update_sprite_and_ray("flying", "left")
 	move_and_slide()
 
 func perform_attack(delta):
