@@ -1,10 +1,13 @@
-[gd_scene load_steps=42 format=3 uid="uid://dyalngqcj1yvh"]
+[gd_scene load_steps=45 format=3 uid="uid://dyalngqcj1yvh"]
 
 [ext_resource type="Script" uid="uid://7ryoxqe1gyvq" path="res://scripts/Player/FireFly.gd" id="1_bo3ie"]
 [ext_resource type="Texture2D" uid="uid://dy12x3d8m23kq" path="res://textures/Assets/Firefly.png" id="2_d78j5"]
 [ext_resource type="Texture2D" uid="uid://kjnkpxy2h384" path="res://textures/Assets/ball2.png" id="3_lb2sn"]
 [ext_resource type="PackedScene" uid="uid://c25mo4jdm6w75" path="res://scenes/UI/PlayerUI.tscn" id="4_y75uk"]
 [ext_resource type="PackedScene" uid="uid://du4x8pws7r0i" path="res://scenes/Player/Sparkle.tscn" id="5_d78j5"]
+[ext_resource type="AudioStream" uid="uid://dwsejgmtkvwfm" path="res://audio/sounds/enemies/BatWingFlap2.wav" id="6_axwqd"]
+[ext_resource type="AudioStream" uid="uid://dm66dpe2jtfsc" path="res://audio/sounds/enemies/FireflyTransform.wav" id="7_bg4pc"]
+[ext_resource type="AudioStream" uid="uid://c0miy8gbqpm3d" path="res://audio/sounds/enemies/LightSound.wav" id="8_dl75d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bo3ie"]
 size = Vector2(19, 18)
@@ -290,5 +293,20 @@ collision_mask = 31
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CircleShape2D_d78j5")
+
+[node name="FlyingSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_axwqd")
+volume_db = -9.541
+pitch_scale = 30.0
+
+[node name="TransformSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_bg4pc")
+volume_db = -3.817
+pitch_scale = 3.2
+
+[node name="LightSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_dl75d")
+volume_db = -3.817
+pitch_scale = 1.26
 
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

@@ -6,6 +6,11 @@ class_name Player
 @onready var sparkles: GPUParticles2D = $Sparkle
 @onready var ui: CanvasLayer = $PlayerUI
 @onready var next_level_timer: Timer = $NextLevelTimer
+@onready var flying_sound: AudioStreamPlayer2D = $FlyingSound
+@onready var transform_sound: AudioStreamPlayer2D = $TransformSound
+@onready var lightSound: AudioStreamPlayer2D = $LightSound
+
+
 
 var SPEED = 220.0 
 @export var SPEED_LIGHT = 240.0 
@@ -45,6 +50,7 @@ func _ready():
 			hearts_list.append(child)
 	
 	sprite.animation_finished.connect(_on_animation_finished)
+	if flying_sound: flying_sound.play()
 
 func _physics_process(delta):
 	# Cambio de modo
@@ -115,17 +121,17 @@ func toggle_mode():
 	particle_mode = !particle_mode
 	beam_mode = !beam_mode
 	is_transforming = true 
-	
+	if transform_sound: transform_sound.play()
 	if beam_mode:
 		sprite.play("to_light")
 		time_elapsed = 0.0
+		if flying_sound: flying_sound.stop()
+		if lightSound: lightSound.play()    
 		
 		if trail_line: 
 			trail_line.modulate.a = 1.0
 			trail_line.clear_points()
 			path_history.clear()
-			
-			# 3. Punto inicial
 			var start_data = {
 				"center_pos": global_position,
 				"normal": aim_dir.orthogonal(),
@@ -135,6 +141,8 @@ func toggle_mode():
 			
 	else:
 		sprite.play("to_particle")
+		if lightSound: lightSound.stop() 
+		if flying_sound: flying_sound.play() 
 		
 		if trail_line:
 			var tween = create_tween()
@@ -196,14 +204,9 @@ func get_beam_origin(): return global_position
 func get_beam_direction(): return aim_dir
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
-	print("El HitBox ha tocado a: ", body.name)
-
 	if beam_mode:
 		if body.is_in_group("enemies"):
-			print("¡ES UN ENEMIGO! Intentando matar...")
 			if body.has_method("die"):
 				body.die()
 			else:
-				print("ERROR: El enemigo no tiene función die()")
-		else:
-			print("Lo que he tocado NO está en el grupo 'enemies'")
+				body.queue_free()
