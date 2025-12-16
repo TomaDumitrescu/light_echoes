@@ -160,6 +160,7 @@ func take_damage():
 func die():
 	if not dead:
 		dead = true
+		ScoreSaver.save_score(PlayerStats.score)
 		get_tree().change_scene_to_file("res://scenes/game_over.tscn")
 
 func update_heart_display():

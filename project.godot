@@ -17,6 +17,7 @@ config/features=PackedStringArray("4.5", "GL Compatibility")
 [autoload]
 
 PlayerStats="*res://scripts/Singleton/PlayerStats.gd"
+ScoreSaver="*res://scripts/Singleton/score_saver.gd"
 
 [display]
 
