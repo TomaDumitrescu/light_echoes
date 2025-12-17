@@ -99,8 +99,8 @@ func apply_gravity(delta):
 	
 func move_particle():
 	var input = Vector2(
-		Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
-		Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+		Input.get_action_strength("d") - Input.get_action_strength("a"),
+		Input.get_action_strength("s") - Input.get_action_strength("w")
 	)
 	sprite.rotation = 0
 	if input != Vector2.ZERO:
