@@ -47,8 +47,9 @@ func bite():
 func die():
 	set_physics_process(false)
 	collision.set_deferred("disabled", true)
-
+	PlayerStats.add_points(20)
 	animated.play("dying")
 	await sprite.animation_finished
+	
 	queue_free()
 	
