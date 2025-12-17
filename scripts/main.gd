@@ -19,6 +19,7 @@ const OBSTACLE_SCENES = {
 	"SPIKETRAP": preload("res://scenes/Obstacles/SpikeTrap.tscn")
 }
 func _ready():
+	AudioManager.play_main_music()
 	var map_generator = MapGenerator.new()
 	map_generator.generate_map()
 	map.create(map_generator.map)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://lxq0vdvat0lp"]
+[gd_scene load_steps=18 format=3 uid="uid://lxq0vdvat0lp"]
 
 [ext_resource type="Script" uid="uid://8nx70rpyxysu" path="res://scripts/main.gd" id="1_aabo0"]
 [ext_resource type="Texture2D" uid="uid://dx36vc0te04h" path="res://textures/rock.jpg" id="3_ppfhr"]
@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://cvqrkif21tgc6" path="res://textures/spotlight_1.png" id="7_choun"]
 [ext_resource type="Texture2D" uid="uid://lo2rfsyyrbd0" path="res://textures/minimap_tile.jpg" id="7_whxs8"]
 [ext_resource type="Script" uid="uid://8vkyu23ccndk" path="res://scripts/mini_map.gd" id="8_u66ay"]
-[ext_resource type="AudioStream" uid="uid://b03oi0arg8vdr" path="res://audio/sounds/cave-with-ambience-275424.mp3" id="11_eb6dy"]
 [ext_resource type="PackedScene" uid="uid://dyalngqcj1yvh" path="res://scenes/Player/FireFly.tscn" id="11_ya4ey"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3ptkp"]
@@ -81,24 +80,19 @@ texture_scale = 6.0
 
 [node name="NextLevelTimer" type="Timer" parent="FireFly"]
 
-[node name="CaveWithAmbience275424" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("11_eb6dy")
-volume_db = -10.973
-autoplay = true
-
 [connection signal="body_entered" from="TileMap/Exit" to="TileMap/Exit" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@21079" to="TileMap/@Area2D@21079" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@21080" to="TileMap/@Area2D@21080" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@21081" to="TileMap/@Area2D@21081" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@21082" to="TileMap/@Area2D@21082" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@21083" to="TileMap/@Area2D@21083" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@21084" to="TileMap/@Area2D@21084" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@21085" to="TileMap/@Area2D@21085" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@21086" to="TileMap/@Area2D@21086" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@21087" to="TileMap/@Area2D@21087" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@21088" to="TileMap/@Area2D@21088" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@21089" to="TileMap/@Area2D@21089" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@21090" to="TileMap/@Area2D@21090" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@21091" to="TileMap/@Area2D@21091" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@21092" to="TileMap/@Area2D@21092" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@26231" to="TileMap/@Area2D@26231" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@26232" to="TileMap/@Area2D@26232" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@26233" to="TileMap/@Area2D@26233" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@26234" to="TileMap/@Area2D@26234" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@26235" to="TileMap/@Area2D@26235" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@26236" to="TileMap/@Area2D@26236" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@26237" to="TileMap/@Area2D@26237" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@26238" to="TileMap/@Area2D@26238" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@26239" to="TileMap/@Area2D@26239" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@26240" to="TileMap/@Area2D@26240" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@26241" to="TileMap/@Area2D@26241" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@26242" to="TileMap/@Area2D@26242" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@26243" to="TileMap/@Area2D@26243" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@26244" to="TileMap/@Area2D@26244" method="_on_body_entered"]
 [connection signal="timeout" from="FireFly/NextLevelTimer" to="FireFly" method="_on_next_level_timer_timeout"]

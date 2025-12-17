@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cil4lnlnabyrx"]
+
+[ext_resource type="AudioStream" path="res://audio/sounds/cave-with-ambience-275424.mp3" id="1_emdri"]
+
+[node name="CaveWithAmbience275424" type="AudioStreamPlayer"]
+stream = ExtResource("1_emdri")
+volume_db = -10.973
+autoplay = true
+bus = &"Music"

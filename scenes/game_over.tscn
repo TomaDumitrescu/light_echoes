@@ -61,4 +61,6 @@ theme_override_font_sizes/font_size = 36
 text = "Menu"
 
 [connection signal="button_down" from="VBoxContainer/RetryButton" to="." method="_on_retry_button_button_down"]
+[connection signal="mouse_entered" from="VBoxContainer/RetryButton" to="." method="_on_retry_button_mouse_entered"]
 [connection signal="button_down" from="VBoxContainer/MenuButton" to="." method="_on_menu_button_button_down"]
+[connection signal="mouse_entered" from="VBoxContainer/MenuButton" to="." method="_on_menu_button_mouse_entered"]
