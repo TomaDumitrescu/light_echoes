@@ -18,8 +18,8 @@ class_name Player
 @export var wave_amplitude: float = 40.0 
 @export var wave_growth_speed: float = 8.0 
 
-var SPEED = BASE_SPEED 
-var SPEED_LIGHT = BASE_SPEED
+var SPEED 
+var SPEED_LIGHT 
 var particle_mode := true
 var beam_mode := false
 var is_transforming := false 
@@ -31,11 +31,13 @@ var fast = false
 var speed_timer: float = 0.0
 var path_history: Array = []
 var current_gravity: float = 0.0
+
 @export var SPEED_TIMER = 5.0
 @export var SLIMED_TIMER = 5.0
+
 @export var SLIME_GRAVITY: float = 6000.0
 @export var WEBBED_MULT: float = 0.5
-@export var SPEED_MULT: float = 2.0
+@export var SPEED_MULT: float = 1.5
 
 var hearts_list: Array[TextureRect] = []
 var health = 3
@@ -58,6 +60,9 @@ func _ready():
 	
 	sprite.animation_finished.connect(_on_animation_finished)
 	if flying_sound: flying_sound.play()
+	
+	SPEED = BASE_SPEED 
+	SPEED_LIGHT = BASE_SPEED 
 
 func _physics_process(delta):
 	# Cambio de modo

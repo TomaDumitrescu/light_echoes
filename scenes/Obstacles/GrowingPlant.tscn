@@ -95,8 +95,6 @@ radius = 181.02486
 
 [node name="GrowingPlant" type="StaticBody2D"]
 script = ExtResource("1_xhddm")
-grow_speed = 2.0
-max_scale = 10.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -110,6 +108,7 @@ position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_yvoik")
 
 [node name="DetectionArea" type="Area2D" parent="."]
+scale = Vector2(2, 2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
 shape = SubResource("CircleShape2D_nbwxm")
