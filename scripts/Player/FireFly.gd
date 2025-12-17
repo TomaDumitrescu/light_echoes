@@ -204,7 +204,8 @@ func take_damage():
 	if health > 1:
 		health -= 1
 		update_heart_display()
-		get_tree().call_group("HUD", "damage_flash")
+		if ui and ui.has_method("damage_flash"):
+			ui.damage_flash()
 	else:
 		die()
 
