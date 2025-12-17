@@ -214,7 +214,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"to_light",
-"speed": 20.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -249,7 +249,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"to_particle",
-"speed": 20.0
+"speed": 15.0
 }]
 
 [sub_resource type="Curve" id="Curve_lb2sn"]
