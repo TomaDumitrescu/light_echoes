@@ -138,8 +138,9 @@ WAIT_UNTIL_IDLE = 3.0
 
 [node name="AnimatedSprite2D" parent="." index="1"]
 texture_filter = 1
-position = Vector2(0, 5)
+position = Vector2(0, -2)
 rotation = 6.28319
+scale = Vector2(1, 0.667)
 sprite_frames = SubResource("SpriteFrames_5n2j5")
 animation = &"destroy"
 

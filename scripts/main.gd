@@ -12,8 +12,6 @@ const SCENES = {
 	"SLIME": preload("res://scenes/Enemies/Slime.tscn"),
 }
 
-@export var dspike = 0.85
-
 const OBSTACLE_SCENES = {
 	"GROWINGPLANT": preload("res://scenes/Obstacles/GrowingPlant.tscn"),
 	"LAVA": preload("res://scenes/Obstacles/Lava.tscn"),
@@ -75,12 +73,3 @@ func spawn_random_at_markers(sceneName: String, oSceneName: String, markers: Arr
 			var obstacle: Node = oScene.instantiate()
 			add_child(obstacle)
 			obstacle.global_position = m * Map.TILE_SIZE
-			if oSceneName == "SPIKETRAP":
-				var rN: Vector2i = Vector2i(m[0] + 1, m[1])
-				var lN: Vector2i = Vector2i(m[0] - 1, m[1])
-				if map_generator.is_in_map(rN[1], rN[0], map_generator.width, map_generator.height) and map_generator.map[rN[0]][rN[1]] == map_generator.WALL:
-					obstacle.global_position += Vector2(-dspike, dspike) * Map.TILE_SIZE
-				elif map_generator.is_in_map(lN[1], lN[0], map_generator.width, map_generator.height) and map_generator.map[lN[0]][lN[1]] == map_generator.WALL:
-					obstacle.global_position += Vector2(dspike, dspike) * Map.TILE_SIZE
-				else:
-					obstacle.global_position += Vector2(0, dspike) * Map.TILE_SIZE
