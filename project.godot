@@ -12,12 +12,13 @@ config_version=5
 
 config/name="big_project"
 run/main_scene="uid://cukmhkb7vgxxy"
-config/features=PackedStringArray("4.4", "GL Compatibility")
+config/features=PackedStringArray("4.5", "GL Compatibility")
 
 [autoload]
 
 PlayerStats="*res://scripts/Singleton/PlayerStats.gd"
 ScoreSaver="*res://scripts/Singleton/score_saver.gd"
+AudioManager="*res://scripts/Singleton/Audio_Manager.gd"
 
 [display]
 

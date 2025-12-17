@@ -56,3 +56,4 @@ theme_override_font_sizes/font_size = 32
 text = "Play"
 
 [connection signal="button_down" from="PlayButton" to="." method="_on_play_button_button_down"]
+[connection signal="mouse_entered" from="PlayButton" to="." method="_on_play_button_mouse_entered"]
