@@ -32,3 +32,6 @@ func remove_effect(effect: String):
 		return
 	effects.erase(effect)
 	effect_removed.emit(effect)
+	
+func has_effect(effect: String):
+	return effects.has(effect)
