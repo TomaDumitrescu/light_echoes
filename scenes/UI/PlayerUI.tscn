@@ -56,7 +56,7 @@ region = Rect2(393.40747, 4351.1807, 60.028137, 64.42041)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jt14p"]
 atlas = ExtResource("4_da24e")
-region = Rect2(322.98016, 4289.0806, 66.55005, 62.91992)
+region = Rect2(327, 4295.5, 51, 47)
 
 [node name="Node2D" type="CanvasLayer"]
 script = ExtResource("1_jt14p")

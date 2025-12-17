@@ -132,7 +132,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_o6t01")
 }],
 "loop": false,
-"name": &"atack",
+"name": &"attack",
 "speed": 15.0
 }, {
 "frames": [{
@@ -214,9 +214,7 @@ DASH_COOLDOWN = 5.0
 [node name="AnimatedSprite2D" parent="." index="1"]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_uylkx")
-animation = &"atack"
-frame = 6
-frame_progress = 1.0
+animation = &"attack"
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." index="6"]
 

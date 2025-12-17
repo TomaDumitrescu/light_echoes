@@ -1,12 +1,11 @@
 extends StaticBody2D
 
-@onready var area: Area2D = $Area2D
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var det: Area2D = $DetectionArea
 @onready var coll: CollisionShape2D = $CollisionShape2D
 
-@export var grow_speed = 1.0
-@export var max_scale = 2.0
+@export var grow_speed = 8.0
+@export var max_scale = 16.0
 @export var min_scale = 1.0
 
 var current_scale = 1.0
@@ -27,16 +26,18 @@ func _process(delta: float) -> void:
 	else:
 		current_scale = max(current_scale - grow_speed * delta, min_scale)
 	
+
 	update_animation()
+	
 	#height of current frame
 	var tex = sprite.sprite_frames.get_frame_texture("growing", sprite.frame)
 	var sprite_height = tex.get_height()
+	var sprite_width = tex.get_width()
 	
 	sprite.scale = Vector2(current_scale, current_scale)	#3 as width of plant
 	sprite.position = Vector2(0, - (sprite_height * (current_scale - 1)) / 2.0) #fixed position
 	
-	update_collider(sprite_height)
-	
+	update_collider(sprite_height, sprite_width, current_scale)
 	
 func update_animation():
 	var progress = (current_scale - min_scale) / (max_scale - min_scale)
@@ -44,11 +45,17 @@ func update_animation():
 	var frame_idx = int(progress * (total_frames - 1))	
 	sprite.frame = frame_idx
 
-func update_collider(h: float):
-	var shape = coll.shape as RectangleShape2D
-	shape.size.y = h * current_scale
-	coll.shape = shape
-	coll.position.y = -shape.size.y/2.0
+func update_collider(h: float, w: float, scale: float):
+	if player.is_particle_mode():
+		coll.disabled = true
+		return
+	else: coll.disabled = false
+	
+	if coll.shape is RectangleShape2D:
+		var shape = coll.shape as RectangleShape2D
+		shape.extents = Vector2(w, (h * current_scale)/2.0)
+		coll.shape = shape
+		coll.position = Vector2(0,-shape.extents.y)
 
 
 func _on_detection_area_body_entered(body: Node2D) -> void:

@@ -4,13 +4,16 @@ extends Node2D
 @onready var player: Player = $FireFly
 @onready var minimap: MiniMap = $MiniMap
 
+
 const SCENES = {
 	"BAT": preload("res://scenes/Enemies/Bat.tscn"),
-	#"MOTH": preload("res://scenes/Enemies/Moth.tscn"),
+	"MOTH": preload("res://scenes/Enemies/Moth.tscn"),
 	"STACTALITE": preload("res://scenes/Enemies/Stalactite.tscn"),
 	"SPIDER": preload("res://scenes/Enemies/Spider.tscn"),
 	"SLIME": preload("res://scenes/Enemies/Slime.tscn"),
 }
+
+@export var dspike = 0.85
 
 const OBSTACLE_SCENES = {
 	"GROWINGPLANT": preload("res://scenes/Obstacles/GrowingPlant.tscn"),
@@ -20,6 +23,7 @@ const OBSTACLE_SCENES = {
 }
 func _ready():
 	AudioManager.play_main_music()
+	
 	var map_generator = MapGenerator.new()
 	map_generator.generate_map()
 	map.create(map_generator.map)
@@ -28,11 +32,11 @@ func _ready():
 	position_player(map_generator)
 	add_markers_on_map(map_generator)
 	
-	spawn_random_at_markers("BAT", "MIRROR", map_generator.air_markers, map_generator)
-	spawn_random_at_markers("STACTALITE", "SPIKETRAP", map_generator.ceiling_markers, map_generator)
-	spawn_random_at_markers("SPIDER", "", map_generator.side_markers, map_generator)
-	spawn_random_at_markers("", "LAVA", map_generator.lava_markers, map_generator)
-	spawn_random_at_markers("SLIME", "GROWINGPLANT", map_generator.ground_markers, map_generator)
+	spawn_random_at_markers(["BAT", "MOTH"], "MIRROR", map_generator.air_markers, map_generator)
+	spawn_random_at_markers(["STACTALITE"], "SPIKETRAP", map_generator.ceiling_markers, map_generator)
+	spawn_random_at_markers(["SPIDER"], "", map_generator.side_markers, map_generator)
+	spawn_random_at_markers([], "LAVA", map_generator.lava_markers, map_generator)
+	spawn_random_at_markers(["SLIME"], "GROWINGPLANT", map_generator.ground_markers, map_generator)
 
 func add_markers_on_map(map_generator):
 	map.add_air_elements(map_generator.air_markers, player.global_position / Map.TILE_SIZE)
@@ -56,20 +60,35 @@ func position_player(map_generator: MapGenerator):
 func on_target_reached():
 	get_tree().call_deferred("reload_current_scene")
 	
-func spawn_random_at_markers(sceneName: String, oSceneName: String, markers: Array, map_generator: MapGenerator):
-	var enemyScene: PackedScene = null
-	if sceneName.length() >= 1:
-		enemyScene = SCENES[sceneName]
+func spawn_random_at_markers(sceneNames: Array, oSceneName: String, markers: Array, map_generator: MapGenerator):
 	var oScene: PackedScene = null
 	if oSceneName.length() >= 1:
 		oScene = OBSTACLE_SCENES[oSceneName]
+		
 	for m in markers:
 		var random = randf()
+		var enemyScene: PackedScene = null
+		if sceneNames.size() >= 1:
+			var chosen_name = sceneNames[randi() % sceneNames.size()]
+			if SCENES.has(chosen_name):
+				enemyScene = SCENES[chosen_name]
+				
 		if random < 0.6 and enemyScene != null:
 			var enemy = enemyScene.instantiate()
 			add_child(enemy)
 			enemy.global_position = m * Map.TILE_SIZE
+			
 		elif oScene != null and random >= 0.4:
 			var obstacle: Node = oScene.instantiate()
 			add_child(obstacle)
 			obstacle.global_position = m * Map.TILE_SIZE
+			
+			if oSceneName == "SPIKETRAP":
+				var rN: Vector2i = Vector2i(m[0] + 1, m[1])
+				var lN: Vector2i = Vector2i(m[0] - 1, m[1])
+				if map_generator.is_in_map(rN[1], rN[0], map_generator.width, map_generator.height) and map_generator.map[rN[0]][rN[1]] == map_generator.WALL:
+					obstacle.global_position += Vector2(-dspike, dspike) * Map.TILE_SIZE
+				elif map_generator.is_in_map(lN[1], lN[0], map_generator.width, map_generator.height) and map_generator.map[lN[0]][lN[1]] == map_generator.WALL:
+					obstacle.global_position += Vector2(dspike, dspike) * Map.TILE_SIZE
+				else:
+					obstacle.global_position += Vector2(0, dspike) * Map.TILE_SIZE

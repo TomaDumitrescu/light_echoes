@@ -24,7 +24,7 @@ region = Rect2(0, 32, 32, 32)
 animations = [{
 "frames": [],
 "loop": false,
-"name": &"atack",
+"name": &"attack",
 "speed": 15.0
 }, {
 "frames": [{
@@ -64,7 +64,7 @@ WAIT_UNTIL_IDLE = 3.0
 [node name="AnimatedSprite2D" parent="." index="1"]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_uylkx")
-animation = &"flying"
+animation = &"attack"
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." index="6"]
 

@@ -70,7 +70,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_vow3w")
 }],
 "loop": false,
-"name": &"atack",
+"name": &"attack",
 "speed": 5.0
 }, {
 "frames": [{
@@ -138,14 +138,14 @@ WAIT_UNTIL_IDLE = 3.0
 
 [node name="AnimatedSprite2D" parent="." index="1"]
 texture_filter = 1
-position = Vector2(0, -2)
+position = Vector2(0, -5)
 rotation = 6.28319
-scale = Vector2(1, 0.667)
+scale = Vector2(0.667, 0.5)
 sprite_frames = SubResource("SpriteFrames_5n2j5")
-animation = &"destroy"
+animation = &"attack"
 
 [node name="VisibleOnScreenEnabler2D" parent="." index="5"]
-rect = Rect2(-10, -341, 20, 491.33334)
+rect = Rect2(-10, -341, 20, 491.333)
 
 [node name="SfxFall" type="AudioStreamPlayer2D" parent="." index="6"]
 stream = ExtResource("4_36ja2")
@@ -156,4 +156,4 @@ pitch_scale = 3.01
 stream = ExtResource("5_wyyvv")
 volume_db = -24.807
 pitch_scale = 2.5
-attenuation = 2.219139
+attenuation = 2.21914

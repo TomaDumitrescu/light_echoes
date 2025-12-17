@@ -96,7 +96,7 @@ func check_body_collision():
 		if collider and collider.is_in_group("player"):
 			can_deal_damage = false
 			
-			if collider.has_method("take_damage"):
+			if collider.has_method("take_damage") and collider.is_particle_mode():
 				collider.take_damage()
 				start_damage_interval()
 				velocity = (global_position - collider.global_position).normalized() * 200

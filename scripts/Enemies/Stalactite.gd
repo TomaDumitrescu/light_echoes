@@ -6,6 +6,7 @@ class_name FallingEnemy
 @export var FALL_PERCEPTION_RANGE: float = 500
 @export var WAIT_UNTIL_IDLE: float = 3
 
+@onready var visible_on_screen_enabler_2d: VisibleOnScreenEnabler2D = $VisibleOnScreenEnabler2D
 @onready var coll: CollisionShape2D = $CollisionShape2D
 @onready var sfx_fall: AudioStreamPlayer2D = $SfxFall
 @onready var sfx_break: AudioStreamPlayer2D = $SfxBreak
@@ -71,7 +72,7 @@ func trigger_destruction(collision):
 	if c.is_in_group("player"):
 		c.die()
 	
-	elif c.is_in_group("enemy") and c.is_visible_on_screen():
+	elif c.is_in_group("enemy") and visible_on_screen_enabler_2d.is_on_screen():
 		PlayerStats.add_points(10)
 		c.queue_free()
 	
