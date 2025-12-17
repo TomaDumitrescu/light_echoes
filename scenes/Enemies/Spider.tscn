@@ -131,7 +131,7 @@ WEB_SIZE = 5.0
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_22pw6")
 animation = &"dying"
-frame_progress = 0.07419275
+frame_progress = 0.0741927
 
 [node name="WebContainer" type="Node2D" parent="." index="4"]
 
