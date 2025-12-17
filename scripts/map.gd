@@ -71,3 +71,8 @@ func add_side_elements(side_markers: Array[Vector2i], player_pos: Vector2i):
 	# DEBUG visualize
 	#for side_marker in filtered_markers:
 		#set_cell(BACKGROUND_LAYER, side_marker, -1, Vector2i(-1, -1), -1)
+
+func add_corner_elements(lava_markers: Array[Vector2i]):
+		#for side_marker in lava_markers:
+			#set_cell(BACKGROUND_LAYER, side_marker, -1, Vector2i(-1, -1), -1)
+		return

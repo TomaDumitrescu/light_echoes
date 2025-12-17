@@ -16,7 +16,7 @@ func save_score(score: int, level: int):
 	save_game.store_line(json_string)
 
 func get_best() -> Dictionary:
-	const empty_best = {
+	var empty_best = {
 			BEST_SCORE_KEY: 0,
 			BEST_LEVEL_KEY: 1
 		}

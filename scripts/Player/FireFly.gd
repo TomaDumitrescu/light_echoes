@@ -12,25 +12,30 @@ class_name Player
 @onready var rebote_sound: AudioStreamPlayer2D = $ReboteSound
 @onready var mirror_rebote_sound: AudioStreamPlayer2D = $MirrorReboteSound
 
+@export var BASE_SPEED: float = 220.0
 
-
-var SPEED = 220.0 
-@export var SPEED_LIGHT = 240.0 
 @export var wave_frequency: float = 20.0 
 @export var wave_amplitude: float = 40.0 
 @export var wave_growth_speed: float = 8.0 
 
-
+var SPEED = BASE_SPEED 
+var SPEED_LIGHT = BASE_SPEED
 var particle_mode := true
 var beam_mode := false
 var is_transforming := false 
 var aim_dir = Vector2.RIGHT 
 var time_elapsed: float = 0.0
 var slimed = false
-var timer = 0.0
+var slimed_timer: float = 0.0
+var fast = false
+var speed_timer: float = 0.0
 var path_history: Array = []
+var current_gravity: float = 0.0
+@export var SPEED_TIMER = 5.0
 @export var SLIMED_TIMER = 5.0
-@export var SLIME_EFFECT = Vector2(0.7, 10000)
+@export var SLIME_GRAVITY: float = 6000.0
+@export var WEBBED_MULT: float = 0.5
+@export var SPEED_MULT: float = 2.0
 
 var hearts_list: Array[TextureRect] = []
 var health = 3
@@ -58,25 +63,35 @@ func _physics_process(delta):
 	# Cambio de modo
 	if Input.is_action_just_pressed("space") and not is_transforming:
 		toggle_mode()
-
+		
+	if slimed:
+		slimed_timer -= delta
+		if slimed_timer <= 0:
+			remove_status_effect("slimed")
+	
+	if fast:
+		speed_timer -= delta
+		if speed_timer <= 0:
+			remove_status_effect("speedy")
+			
 	if beam_mode:
 		move_light(delta)
 	else:
 		move_particle()
-	if slimed:
-		velocity.x *= SLIME_EFFECT.x
-		velocity.y += SLIME_EFFECT.y * delta
-		timer -= delta
-		if timer <= 0:
-			slimed = false
-			remove_status_effect("slimed")
-
+	
+	if particle_mode:
+		apply_gravity(delta)
+		
 	move_and_slide()
+	
 	if beam_mode and get_slide_collision_count() > 0:
 		handle_beam_reflection()
 	
 	if sparkles: sparkles.emitting = particle_mode
 
+func apply_gravity(delta):
+	velocity.y += current_gravity * delta
+	
 func move_particle():
 	var input = Vector2(
 		Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
@@ -85,11 +100,12 @@ func move_particle():
 	sprite.rotation = 0
 	if input != Vector2.ZERO:
 		aim_dir = input.normalized() 
-		velocity = aim_dir * SPEED
+
+		velocity = aim_dir * SPEED 
 		if not is_transforming: sprite.flip_h = !(input.x > 0)
 	else:
 		velocity = Vector2.ZERO
-	
+
 	if not is_transforming: sprite.play("flying")
 
 func move_light(delta: float):
@@ -120,6 +136,21 @@ func move_light(delta: float):
 			var final_pos = point_data["center_pos"] + (point_data["normal"] * final_offset)
 			trail_line.add_point(final_pos)
 
+func recalc_effects():
+	SPEED = BASE_SPEED
+	SPEED_LIGHT = BASE_SPEED
+	current_gravity = 0.0
+	
+	if PlayerStats.has_effect("webbed"):
+		SPEED *= WEBBED_MULT
+		SPEED_LIGHT *= WEBBED_MULT
+		
+	if PlayerStats.has_effect("slimed"):
+		current_gravity = SLIME_GRAVITY
+		
+	if PlayerStats.has_effect("speedy"):
+		SPEED_LIGHT *= SPEED_MULT
+		
 func toggle_mode():
 	if particle_mode and aim_dir == Vector2.ZERO: aim_dir = Vector2.RIGHT
 
@@ -164,7 +195,6 @@ func _on_animation_finished():
 	if sprite.animation == "to_light" or sprite.animation == "to_particle":
 		is_transforming = false
 
-
 func mode_transition(node: Node):
 	node.scale = Vector2(0.5, 0.5)
 	var tween = create_tween()
@@ -174,7 +204,8 @@ func take_damage():
 	if health > 1:
 		health -= 1
 		update_heart_display()
-		get_tree().call_group("HUD", "damage_flash")
+		if ui and ui.has_method("damage_flash"):
+			ui.damage_flash()
 	else:
 		die()
 
@@ -192,12 +223,38 @@ func update_heart_display():
 	else: hearts_list[0].get_child(0).play("idle")
 
 func apply_status_effect(effect: String):
-	if effect == "webbed": SPEED = SPEED/2
-	if effect == "slimed": slimed = true; timer = SLIMED_TIMER
+	if not PlayerStats.has_effect(effect):
+		PlayerStats.add_effect(effect)
+		
+	if effect == "webbed": 
+		pass	#handled by recalc_effects()
+	
+	if effect == "speedy":
+		fast = true
+		speed_timer = SPEED_TIMER
+		
+	if effect == "slimed": 
+		slimed = true
+		slimed_timer = SLIMED_TIMER
+		
+	recalc_effects()
 
 func remove_status_effect(effect: String):
-	if effect == "webbed": SPEED = SPEED*2
-	if effect == "slimed": pass
+	if PlayerStats.has_effect(effect):
+		PlayerStats.remove_effect(effect)
+		
+	if effect == "webbed": 
+		pass	#handled by recalc_effects()
+	
+	if effect == "speedy":
+		fast = false
+		speed_timer = 0.0
+		
+	if effect == "slimed": 
+		slimed = false
+		slimed_timer = 0.0
+	
+	recalc_effects()
 
 func go_to_next_level(): next_level_timer.start()
 func _on_next_level_timer_timeout() -> void: 
@@ -215,6 +272,9 @@ func handle_beam_reflection():
 	var collider = collision.get_collider()
 	var normal = collision.get_normal()
 	
+	if collider.is_in_group("projectiles"):
+		return
+		
 	if not collider.is_in_group("enemies"):
 		aim_dir = aim_dir.bounce(normal)
 		velocity = velocity.bounce(normal)
@@ -222,6 +282,7 @@ func handle_beam_reflection():
 		
 		if collider.is_in_group("mirrors"):
 			mirror_rebote_sound.play()
+			apply_status_effect("speedy")
 		else:
 			rebote_sound.play()
 			

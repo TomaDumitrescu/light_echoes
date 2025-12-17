@@ -12,6 +12,8 @@ const SCENES = {
 	"SLIME": preload("res://scenes/Enemies/Slime.tscn"),
 }
 
+@export var dspike = 0.85
+
 const OBSTACLE_SCENES = {
 	"GROWINGPLANT": preload("res://scenes/Obstacles/GrowingPlant.tscn"),
 	"LAVA": preload("res://scenes/Obstacles/Lava.tscn"),
@@ -28,20 +30,22 @@ func _ready():
 	position_player(map_generator)
 	add_markers_on_map(map_generator)
 	
-	spawn_random_at_markers("BAT", "MIRROR", map_generator.air_markers)
-	spawn_random_at_markers("STACTALITE", "SPIKETRAP", map_generator.ceiling_markers)
-	spawn_random_at_markers("SPIDER", "LAVA", map_generator.side_markers)
-	spawn_random_at_markers("SLIME", "GROWINGPLANT", map_generator.ground_markers)
+	spawn_random_at_markers("BAT", "MIRROR", map_generator.air_markers, map_generator)
+	spawn_random_at_markers("STACTALITE", "SPIKETRAP", map_generator.ceiling_markers, map_generator)
+	spawn_random_at_markers("SPIDER", "", map_generator.side_markers, map_generator)
+	spawn_random_at_markers("", "LAVA", map_generator.lava_markers, map_generator)
+	spawn_random_at_markers("SLIME", "GROWINGPLANT", map_generator.ground_markers, map_generator)
 
 func add_markers_on_map(map_generator):
 	map.add_air_elements(map_generator.air_markers, player.global_position / Map.TILE_SIZE)
 	map.add_ground_elements(map_generator.ground_markers, player.global_position / Map.TILE_SIZE)
 	map.add_ceiling_elements(map_generator.ceiling_markers, player.global_position / Map.TILE_SIZE)
 	map.add_side_elements(map_generator.side_markers, player.global_position / Map.TILE_SIZE)
+	map.add_corner_elements(map_generator.lava_markers)
 
 func position_player(map_generator: MapGenerator):
 	var player_cell = null
-	var max_iterations = 50
+	var max_iterations = 100
 
 	while max_iterations > 0:
 		max_iterations -= 1
@@ -54,16 +58,29 @@ func position_player(map_generator: MapGenerator):
 func on_target_reached():
 	get_tree().call_deferred("reload_current_scene")
 	
-func spawn_random_at_markers(sceneName: String, oSceneName: String, markers: Array):
-	var enemyScene: PackedScene = SCENES[sceneName]
-	var oScene: PackedScene = OBSTACLE_SCENES[oSceneName]
+func spawn_random_at_markers(sceneName: String, oSceneName: String, markers: Array, map_generator: MapGenerator):
+	var enemyScene: PackedScene = null
+	if sceneName.length() >= 1:
+		enemyScene = SCENES[sceneName]
+	var oScene: PackedScene = null
+	if oSceneName.length() >= 1:
+		oScene = OBSTACLE_SCENES[oSceneName]
 	for m in markers:
-		if randf() < 0.6:
+		var random = randf()
+		if random < 0.6 and enemyScene != null:
 			var enemy = enemyScene.instantiate()
 			add_child(enemy)
 			enemy.global_position = m * Map.TILE_SIZE
-		else:
-			var obstacle = oScene.instantiate()
+		elif oScene != null and random >= 0.4:
+			var obstacle: Node = oScene.instantiate()
 			add_child(obstacle)
 			obstacle.global_position = m * Map.TILE_SIZE
-		
+			if oSceneName == "SPIKETRAP":
+				var rN: Vector2i = Vector2i(m[0] + 1, m[1])
+				var lN: Vector2i = Vector2i(m[0] - 1, m[1])
+				if map_generator.is_in_map(rN[1], rN[0], map_generator.width, map_generator.height) and map_generator.map[rN[0]][rN[1]] == map_generator.WALL:
+					obstacle.global_position += Vector2(-dspike, dspike) * Map.TILE_SIZE
+				elif map_generator.is_in_map(lN[1], lN[0], map_generator.width, map_generator.height) and map_generator.map[lN[0]][lN[1]] == map_generator.WALL:
+					obstacle.global_position += Vector2(dspike, dspike) * Map.TILE_SIZE
+				else:
+					obstacle.global_position += Vector2(0, dspike) * Map.TILE_SIZE

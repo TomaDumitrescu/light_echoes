@@ -263,8 +263,10 @@ colors = PackedColorArray(1, 0.84313726, 0, 1, 1, 0.5529412, 0, 0.4509804, 1, 0.
 [sub_resource type="CircleShape2D" id="CircleShape2D_d78j5"]
 radius = 14.0
 
-[node name="FireFly" type="CharacterBody2D"]
+[node name="FireFly" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_bo3ie")
+
+[node name="PlayerUI" parent="." instance=ExtResource("4_y75uk")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 0)
@@ -281,8 +283,6 @@ width_curve = SubResource("Curve_lb2sn")
 gradient = SubResource("Gradient_6jcmr")
 joint_mode = 2
 
-[node name="PlayerUI" parent="." instance=ExtResource("4_y75uk")]
-
 [node name="Sparkle" parent="." instance=ExtResource("5_d78j5")]
 texture_filter = 1
 
@@ -296,27 +296,27 @@ shape = SubResource("CircleShape2D_d78j5")
 
 [node name="FlyingSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_axwqd")
-volume_db = -9.541
-pitch_scale = 30.0
+volume_db = -20.991
+pitch_scale = 20.0
 
 [node name="TransformSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_bg4pc")
-volume_db = -3.817
+volume_db = -15.267
 pitch_scale = 3.2
 
 [node name="ReboteSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_bg4pc")
-volume_db = -7.634
+volume_db = -13.359
 pitch_scale = 10.0
 
 [node name="MirrorReboteSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_bg4pc")
-volume_db = -7.634
+volume_db = -10.496
 pitch_scale = 10.0
 
 [node name="LightSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("8_dl75d")
-volume_db = -3.817
+volume_db = -12.404
 pitch_scale = 1.26
 
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

@@ -22,6 +22,7 @@ var ground_markers: Array[Vector2i] = []
 var air_markers: Array[Vector2i] = []
 var ceiling_markers: Array[Vector2i] = []
 var side_markers: Array[Vector2i] = []
+var lava_markers: Array[Vector2i] = []
 var exit_cell: Vector2i
 
 func get_empty_cell() -> Vector2i: 
@@ -206,6 +207,7 @@ func add_markers():
 	var ground_tiles: Array[Vector2i] = []
 	var ceiling_tiles: Array[Vector2i] = []
 	var side_tiles: Array[Vector2i] = []
+	var lava_tiles: Array[Vector2i] = []
 	for row in range(height):
 		for column in range(width):
 			if !is_walkable(row, column):
@@ -214,8 +216,9 @@ func add_markers():
 			var is_ground1 = is_in_map(column + 1, row - 1, width, height)
 			var is_ground2 = is_in_map(column + 1, row + 1, width, height)
 			var is_ground3 = is_in_map(column + 1, row, width, height)
-			if is_ground1 and is_ground2 and is_ground3:
-				if map[row][column + 1] == WALL and map[row + 1][column + 1] == WALL and map[row - 1][column + 1] == WALL:
+			var is_ground4 = is_in_map(column, row - 1, width, height) or is_in_map(column, row + 1, width, height)
+			if is_ground1 and is_ground2 and is_ground3 and is_ground4:
+				if map[row][column + 1] == WALL and map[row + 1][column + 1] == WALL and map[row - 1][column + 1] == WALL and !(map[row - 1][column] == WALL or map[row + 1][column] == WALL):
 					ground_tiles.append(Vector2i(row, column))
 					continue
 
@@ -230,22 +233,31 @@ func add_markers():
 			var is_side1 = is_in_map(column - 1, row - 1, width , height)
 			var is_side2 = is_in_map(column + 1, row - 1, width , height)
 			var is_side3 = is_in_map(column, row - 1, width , height)
-			if is_side1 and is_side2 and is_side3:
-				if map[row - 1][column - 1] == WALL and map[row - 1][column + 1] and map[row - 1][column]:
+			var is_side4 = is_in_map(column + 1, row, width, height)
+			if is_side1 and is_side2 and is_side3 and is_side4:
+				if map[row - 1][column - 1] == WALL and map[row - 1][column + 1] == WALL and map[row - 1][column] == WALL and !(map[row][column + 1] == WALL):
 					side_tiles.append(Vector2i(row, column))
 					continue
 
 			is_side1 = is_in_map(column - 1, row + 1, width , height)
 			is_side2 = is_in_map(column + 1, row + 1, width , height)
 			is_side3 = is_in_map(column, row + 1, width , height)
+			is_side4 = is_in_map(column + 1, row, width, height)
 			if is_side1 and is_side2 and is_side3:
-				if map[row + 1][column - 1] == WALL and map[row + 1][column + 1] and map[row + 1][column]:
+				if map[row + 1][column - 1] == WALL and map[row + 1][column + 1] == WALL and map[row + 1][column] == WALL and !(map[row][column + 1] == WALL):
 					side_tiles.append(Vector2i(row, column))
+					continue
+
+			var is_corner = is_in_map(column + 1, row, width , height)
+			if is_corner and map[row][column + 1] == WALL:
+				if (is_in_map(column, row - 1, width, height) and map[row - 1][column] == WALL) or (is_in_map(column, row + 1, width, height) and map[row + 1][column] == WALL):
+					lava_tiles.append(Vector2i(row, column))
 					continue
 
 	random_array_picker(ground_tiles, ground_markers)
 	random_array_picker(ceiling_tiles, ceiling_markers)
 	random_array_picker(side_tiles, side_markers)
+	random_array_picker_lava(lava_tiles, lava_markers)
 
 func random_array_picker(specific_tiles: Array[Vector2i], ref_markers: Array[Vector2i]):
 	var random_no = randi_range(min_wall_markers, max_wall_markers)
@@ -256,6 +268,24 @@ func random_array_picker(specific_tiles: Array[Vector2i], ref_markers: Array[Vec
 		var ok_distance = true
 		for marker in ref_markers:
 			if marker.distance_to(specific_tiles[i]) <= markers_spread:
+				ok_distance = false
+				break
+
+		if ok_distance == false:
+			continue
+
+		ref_markers.append(specific_tiles[i])
+		random_no -= 1
+
+func random_array_picker_lava(specific_tiles: Array[Vector2i], ref_markers: Array[Vector2i]):
+	var random_no = randi_range(min_wall_markers, max_wall_markers)
+	var max_iterations = 100
+	while max_iterations > 0 and random_no > 0:
+		max_iterations -= 1
+		var i = randi_range(0, specific_tiles.size() - 1)
+		var ok_distance = true
+		for marker in ref_markers:
+			if marker.distance_to(specific_tiles[i]) == 0:
 				ok_distance = false
 				break
 

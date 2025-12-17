@@ -68,7 +68,7 @@ script = ExtResource("8_u66ay")
 [node name="CanvasModulate" type="CanvasModulate" parent="." groups=["environment"]]
 color = Color(0.0392157, 0.0392157, 0.0392157, 1)
 
-[node name="FireFly" parent="." groups=["player"] instance=ExtResource("11_ya4ey")]
+[node name="FireFly" parent="." instance=ExtResource("11_ya4ey")]
 scale = Vector2(3, 3)
 
 [node name="PointLight2D" type="PointLight2D" parent="FireFly"]

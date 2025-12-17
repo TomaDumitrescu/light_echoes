@@ -27,10 +27,10 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6csfp"]
-radius = 604.07367
+radius = 604.074
 
 [node name="SpikeTrap" type="Area2D"]
-rotation = 3.1415927
+rotation = 3.14159
 script = ExtResource("1_ffp8i")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -44,7 +44,8 @@ animation = &"idle"
 [node name="DetectionArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
-position = Vector2(1, -1)
+position = Vector2(4, 3)
+scale = Vector2(0.16, 0.16)
 shape = SubResource("CircleShape2D_6csfp")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

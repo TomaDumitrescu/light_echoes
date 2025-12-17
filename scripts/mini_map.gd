@@ -9,7 +9,6 @@ const REVEAL_RADIUS = 9
 @onready var tilemap: Map = $"../TileMap"
 @onready var player: Player = $"../FireFly"
 
-
 var explored = []
 
 func init_explored(map_width: int, map_height: int):
@@ -21,7 +20,7 @@ func init_explored(map_width: int, map_height: int):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	global_position = camera.global_position - get_viewport_rect().size * 0.5
+	global_position = camera.global_position + get_viewport_rect().size * Vector2(0.25, 0.05)
 	update_map()
 	
 func update_map():
@@ -55,4 +54,3 @@ func reveal_tile_at(tile: Vector2i):
 
 	if fg == Map.ROCK_ID:
 		set_cell(LAYER, tile, TILE_ID, Vector2i(0,0))
-		

@@ -5,7 +5,8 @@ extends CanvasLayer
 @onready var container: HBoxContainer = $StatusEffectsContainer
 @onready var effect_icons = {
 	"webbed": $StatusEffectsContainer/WebbedIcon,
-	"slimed": $StatusEffectsContainer/SlimedIcon
+	"slimed": $StatusEffectsContainer/SlimedIcon,
+	"speedy": $StatusEffectsContainer/SpeedIcon
 }
 @onready var damage_flash_rect = $DamageFlash
 
@@ -28,7 +29,6 @@ func _ready() -> void:
 func _on_effect_added(effect: String) -> void:
 	if effect_icons.has(effect):
 		effect_icons[effect].visible = true
-		print(str(effect) + " is visible")
 	
 func _on_effect_removed(effect: String) -> void:
 	if effect_icons.has(effect):
