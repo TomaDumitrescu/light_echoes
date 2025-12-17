@@ -11,6 +11,8 @@ const SCENES = {
 	"SLIME": preload("res://scenes/Enemies/Slime.tscn"),
 }
 
+@export var dspike = 0.85
+
 const OBSTACLE_SCENES = {
 	"GROWINGPLANT": preload("res://scenes/Obstacles/GrowingPlant.tscn"),
 	"LAVA": preload("res://scenes/Obstacles/Lava.tscn"),
@@ -39,7 +41,7 @@ func add_markers_on_map(map_generator):
 
 func position_player(map_generator: MapGenerator):
 	var player_cell = null
-	var max_iterations = 50
+	var max_iterations = 100
 
 	while max_iterations > 0:
 		max_iterations -= 1
@@ -61,7 +63,8 @@ func spawn_random_at_markers(sceneName: String, oSceneName: String, markers: Arr
 			add_child(enemy)
 			enemy.global_position = m * Map.TILE_SIZE
 		else:
-			var obstacle = oScene.instantiate()
+			var obstacle: Node = oScene.instantiate()
 			add_child(obstacle)
 			obstacle.global_position = m * Map.TILE_SIZE
-		
+			if oSceneName == "SPIKETRAP":
+				obstacle.global_position += Vector2(dspike, dspike) * Map.TILE_SIZE
