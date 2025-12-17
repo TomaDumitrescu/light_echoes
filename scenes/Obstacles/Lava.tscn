@@ -12,7 +12,7 @@ colors = PackedColorArray(0.556863, 0, 0, 1, 0.741176, 0.0346405, 0.0124183, 1, 
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_rcvbr"]
 frequency = 0.004
-offset = Vector3(0, 25958, 5185.47)
+offset = Vector3(0, 403.402, 80.6787)
 fractal_type = 3
 fractal_octaves = 2
 fractal_lacunarity = 1.4
@@ -77,7 +77,7 @@ texture_filter = 1
 position = Vector2(167, 167)
 scale = Vector2(10, 10)
 sprite_frames = SubResource("SpriteFrames_o8ktg")
-frame_progress = 0.515527
+frame_progress = 0.855333
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
