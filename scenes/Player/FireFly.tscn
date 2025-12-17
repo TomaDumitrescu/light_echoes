@@ -296,27 +296,27 @@ shape = SubResource("CircleShape2D_d78j5")
 
 [node name="FlyingSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_axwqd")
-volume_db = -20.991
+volume_db = -5.725
 pitch_scale = 20.0
 
 [node name="TransformSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_bg4pc")
-volume_db = -15.267
+volume_db = -4.772
 pitch_scale = 3.2
 
 [node name="ReboteSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_bg4pc")
-volume_db = -13.359
+volume_db = -4.772
 pitch_scale = 10.0
 
 [node name="MirrorReboteSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_bg4pc")
-volume_db = -10.496
+volume_db = -1.869
 pitch_scale = 10.0
 
 [node name="LightSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("8_dl75d")
-volume_db = -12.404
+volume_db = -1.869
 pitch_scale = 1.26
 
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

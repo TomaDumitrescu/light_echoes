@@ -56,10 +56,13 @@ radius = 13.670732
 [node name="CharacterBody2D" groups=["enemies"] instance=ExtResource("1_ddarh")]
 scale = Vector2(3, 3)
 script = ExtResource("2_4c1do")
-FLY_SPEED = 200.0
-FLY_ATTACK_RANGE = 80.0
-FLY_PERCEPTION_RANGE = 300.0
-WAIT_UNTIL_IDLE = 3.0
+FLY_SPEED = 150.0
+DASH_IMPULSE = 800.0
+ACCELERATION = 300.0
+ATTACK_RANGE_TRIGGER = 150.0
+PERCEPTION_RANGE_VAL = 400.0
+IDLE_WAIT_TIME = 3.0
+DASH_COOLDOWN = 5.0
 
 [node name="AnimatedSprite2D" parent="." index="1"]
 texture_filter = 1

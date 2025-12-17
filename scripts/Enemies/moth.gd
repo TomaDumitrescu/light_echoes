@@ -1,50 +1,105 @@
 extends EnemyBase
 class_name FlyingEnemy2
 
-@export var FLY_SPEED: float = 200
-@export var FLY_ATTACK_RANGE: float = 80
-@export var FLY_PERCEPTION_RANGE: float = 300
-@export var WAIT_UNTIL_IDLE: float = 3
+@export var FLY_SPEED: float = 150.0
+@export var DASH_IMPULSE: float = 800.0
+@export var ACCELERATION: float = 300.0
+@export var ATTACK_RANGE_TRIGGER: float = 150.0 
+@export var PERCEPTION_RANGE_VAL: float = 400.0
+@export var IDLE_WAIT_TIME: float = 3.0
+@export var DASH_COOLDOWN: float = 5.0
+
 @onready var animated: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision: CollisionShape2D = $CollisionShape2D
+@onready var sfx_fly: AudioStreamPlayer2D = $FlyingSound
+@onready var sfx_attack: AudioStreamPlayer2D = $AtackSound
+@onready var sfx_die: AudioStreamPlayer2D = $BurnSound
+
+var can_deal_damage: bool = true 
 
 func _ready():
 	super._ready()
 	SPEED = FLY_SPEED
-	ATTACK_RANGE = FLY_ATTACK_RANGE
-	PERCEPTION_RANGE = FLY_PERCEPTION_RANGE
-	timer.wait_time = WAIT_UNTIL_IDLE
-
+	ATTACK_RANGE = ATTACK_RANGE_TRIGGER
+	PERCEPTION_RANGE = PERCEPTION_RANGE_VAL
+	timer.wait_time = IDLE_WAIT_TIME
 	reactivity = Reactivity.REACT_TO_BEAM
+	
+	attack_cooldown.wait_time = DASH_COOLDOWN 
+	
+	if not animated.animation_finished.is_connected(_on_animation_finished):
+		animated.animation_finished.connect(_on_animation_finished)
+	
+	#sfx_fly.play()
 
 func perform_idle(delta):
-	velocity = velocity.move_toward(Vector2.ZERO, 100 * delta) 
-	update_sprite_and_ray("flying", "left")
+	var direction_away = (global_position - player.global_position).normalized()
+	var flee_speed = FLY_SPEED * 0.5
+	var target_velocity = direction_away * flee_speed
+	velocity = velocity.move_toward(target_velocity, ACCELERATION * delta)
+	if velocity.x > 0:
+		update_sprite_and_ray("flying", "right")
+	else:
+		update_sprite_and_ray("flying", "left")
 	move_and_slide()
+	check_body_collision()
 
 func perform_chase(delta):
-	if not player.is_beam_mode():
-		pass 
-		
-	velocity = velocity.move_toward(direction * SPEED, 100 * delta)
-	update_sprite_and_ray("flying", "left")
+	var target_dir = (player.global_position - global_position).normalized()
+	
+	if attack_cooldown.is_stopped() and global_position.distance_to(player.global_position) < ATTACK_RANGE:
+		perform_dash_impulse(target_dir)
+	
+	var desired_velocity = target_dir * FLY_SPEED
+	velocity = velocity.move_toward(desired_velocity, ACCELERATION * delta)
 	move_and_slide()
+	check_body_collision()
 
-func perform_attack(delta):
-	if not attack_cooldown.is_stopped():
-		velocity = Vector2.ZERO
-		return
-		
-	bite()
+	if animated.animation == "attack" and animated.is_playing():
+		return 
+
+	if target_dir.x > 0:
+		update_sprite_and_ray("flying", "right")
+	else:
+		update_sprite_and_ray("flying", "left")
+
+func perform_dash_impulse(dir):
 	attack_cooldown.start()
-	velocity = velocity.move_toward(direction * SPEED, 200 * delta)
-	update_sprite_and_ray("attack", "left")
-	move_and_slide()
+	velocity = dir * DASH_IMPULSE
 	
-func bite():
-	if player.has_method("take_damage"):
-		player.take_damage()
-	
+	if dir.x > 0:
+		animated.flip_h = false
+	else:
+		animated.flip_h = true
+
+func _on_animation_finished():
+	if animated.animation == "attack":
+		animated.play("flying")
+
+func check_body_collision():
+	if not can_deal_damage: return
+
+	for i in get_slide_collision_count():
+		var col = get_slide_collision(i)
+		var collider = col.get_collider()
+		
+		if collider and collider.is_in_group("player"):
+			can_deal_damage = false
+			
+			if collider.has_method("take_damage") and collider.is_particle_mode():
+				collider.take_damage()
+				start_damage_interval()
+				velocity = (global_position - collider.global_position).normalized() * 200
+				return
+
+func start_damage_interval():
+	var tree = get_tree()
+	if tree:
+		await tree.create_timer(1.0).timeout
+		can_deal_damage = true
+	else:
+		can_deal_damage = true
+
 func die():
 	set_physics_process(false) 
 	collision.set_deferred("disabled", true)
@@ -55,3 +110,7 @@ func die():
 	tween.tween_property(self, "rotation_degrees", 90.0, 1.5)
 	tween.tween_property(self, "modulate:a", 0.0, 1.5)
 	tween.chain().tween_callback(queue_free)
+
+
+func perform_attack(delta):
+	perform_chase(delta)
