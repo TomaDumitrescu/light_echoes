@@ -96,6 +96,9 @@ JUMP_IMPULSE = 150.0
 GRAVITY = 100.0
 THROW_FORCE = 2.0
 
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, -3)
+
 [node name="AnimatedSprite2D" parent="." index="1"]
 sprite_frames = SubResource("SpriteFrames_wt1uk")
 animation = &"attack"

@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://beojm4extrd4e" path="res://textures/Enemies/Projectile_slime.png" id="2_fmf1x"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fwmgb"]
-radius = 4.204759
+radius = 4.20476
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o3aim"]
 atlas = ExtResource("2_fmf1x")
@@ -29,7 +29,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xslnq"]
-radius = 27.018513
+radius = 27.0185
 
 [node name="SlimeBall" type="RigidBody2D"]
 script = ExtResource("1_tt3bm")

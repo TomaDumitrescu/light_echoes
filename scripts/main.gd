@@ -13,6 +13,7 @@ const SCENES = {
 	"SLIME": preload("res://scenes/Enemies/Slime.tscn"),
 }
 
+@export var dplant = 1.25
 @export var dspike = 0.85
 
 const OBSTACLE_SCENES = {
@@ -23,7 +24,7 @@ const OBSTACLE_SCENES = {
 }
 func _ready():
 	AudioManager.play_main_music()
-	
+
 	var map_generator = MapGenerator.new()
 	map_generator.generate_map()
 	map.create(map_generator.map)
@@ -31,7 +32,7 @@ func _ready():
 	minimap.init_explored(map_generator.width, map_generator.height)
 	position_player(map_generator)
 	add_markers_on_map(map_generator)
-	
+
 	spawn_random_at_markers(["BAT", "MOTH"], "MIRROR", map_generator.air_markers, map_generator)
 	spawn_random_at_markers(["STACTALITE"], "SPIKETRAP", map_generator.ceiling_markers, map_generator)
 	spawn_random_at_markers(["SPIDER"], "", map_generator.side_markers, map_generator)
@@ -77,13 +78,14 @@ func spawn_random_at_markers(sceneNames: Array, oSceneName: String, markers: Arr
 			var enemy = enemyScene.instantiate()
 			add_child(enemy)
 			enemy.global_position = m * Map.TILE_SIZE
-			
+
 		elif oScene != null and random >= 0.4:
 			var obstacle: Node = oScene.instantiate()
 			add_child(obstacle)
 			obstacle.global_position = m * Map.TILE_SIZE
-			
-			if oSceneName == "SPIKETRAP":
+			if oSceneName == "GROWINGPLANT":
+				obstacle.global_position = Vector2(m[0], m[1] + dplant) * Map.TILE_SIZE
+			elif oSceneName == "SPIKETRAP":
 				var rN: Vector2i = Vector2i(m[0] + 1, m[1])
 				var lN: Vector2i = Vector2i(m[0] - 1, m[1])
 				if map_generator.is_in_map(rN[1], rN[0], map_generator.width, map_generator.height) and map_generator.map[rN[0]][rN[1]] == map_generator.WALL:

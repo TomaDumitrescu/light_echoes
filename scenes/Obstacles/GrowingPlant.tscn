@@ -91,14 +91,14 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yvoik"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nbwxm"]
-radius = 181.02486
+radius = 181.025
 
 [node name="GrowingPlant" type="StaticBody2D"]
 script = ExtResource("1_xhddm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-position = Vector2(0, -16)
+scale = Vector2(0.667, 0.5)
 sprite_frames = SubResource("SpriteFrames_ib08v")
 animation = &"growing"
 frame_progress = 1.0
