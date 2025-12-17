@@ -43,6 +43,6 @@ func perform_attack(delta):
 			print("stac hit enemy (+10 points)")
 			PlayerStats.add_points(10)
 			c.queue_free()
-			queue_free()		
+			queue_free()
 		else:
 			queue_free()

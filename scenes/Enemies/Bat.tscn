@@ -1,9 +1,12 @@
-[gd_scene load_steps=31 format=3 uid="uid://bmcj8etaf3ho"]
+[gd_scene load_steps=34 format=3 uid="uid://bmcj8etaf3ho"]
 
 [ext_resource type="PackedScene" uid="uid://ddtw1de31gtve" path="res://scenes/EnemyTemplate/EnemyBase.tscn" id="1_mokt8"]
 [ext_resource type="Script" uid="uid://ba30tn0lerekg" path="res://scripts/Enemies/Bat.gd" id="2_c87qa"]
 [ext_resource type="Texture2D" uid="uid://drnwe5qhd0xap" path="res://textures/Assets/BatAtack.png" id="3_c87qa"]
 [ext_resource type="Texture2D" uid="uid://c6ryi125iuf2p" path="res://textures/Assets/Bat.png" id="3_mokt8"]
+[ext_resource type="AudioStream" uid="uid://cb0fu7leb6ufy" path="res://audio/sounds/enemies/BatWingFlap1.wav" id="5_bs2en"]
+[ext_resource type="AudioStream" uid="uid://dv4insl3h3djx" path="res://audio/sounds/enemies/Dash.wav" id="6_pguf6"]
+[ext_resource type="AudioStream" uid="uid://o4dqaivpbdab" path="res://audio/sounds/enemies/BurnSound.wav" id="7_f54gk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o6t01"]
 atlas = ExtResource("3_c87qa")
@@ -124,6 +127,9 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_xxh5j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o6t01")
 }],
 "loop": false,
 "name": &"atack",
@@ -197,16 +203,19 @@ radius = 13.670732
 [node name="CharacterBody2D" groups=["enemies"] instance=ExtResource("1_mokt8")]
 scale = Vector2(3, 3)
 script = ExtResource("2_c87qa")
-FLY_SPEED = 200.0
-FLY_ATTACK_RANGE = 80.0
-FLY_PERCEPTION_RANGE = 300.0
-WAIT_UNTIL_IDLE = 3.0
+FLY_SPEED = 150.0
+DASH_IMPULSE = 800.0
+ACCELERATION = 300.0
+ATTACK_RANGE_TRIGGER = 150.0
+PERCEPTION_RANGE_VAL = 400.0
+IDLE_WAIT_TIME = 3.0
+DASH_COOLDOWN = 5.0
 
 [node name="AnimatedSprite2D" parent="." index="1"]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_uylkx")
-animation = &"dying"
-frame = 8
+animation = &"atack"
+frame = 6
 frame_progress = 1.0
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." index="6"]
@@ -217,3 +226,19 @@ position = Vector2(2, 0)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
 position = Vector2(-2, 0)
 shape = SubResource("CircleShape2D_c87qa")
+
+[node name="FlyingSound" type="AudioStreamPlayer2D" parent="." index="8"]
+stream = ExtResource("5_bs2en")
+volume_db = 5.725
+pitch_scale = 2.78
+attenuation = 2.378415
+
+[node name="AtackSound" type="AudioStreamPlayer2D" parent="." index="9"]
+stream = ExtResource("6_pguf6")
+volume_db = -17.175
+pitch_scale = 3.39
+
+[node name="BurnSound" type="AudioStreamPlayer2D" parent="." index="10"]
+stream = ExtResource("7_f54gk")
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

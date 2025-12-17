@@ -62,6 +62,7 @@ func shoot_slimeball():
 	
 	#start pos in front of enenmy
 	ball.global_position = global_position + Vector2(direction.x * 10, -10)
+	ball.shooter = self
 	var p = player.global_position
 	#distance
 	var dx = p.x - global_position.x

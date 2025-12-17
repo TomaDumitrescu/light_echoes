@@ -28,7 +28,6 @@ func _ready() -> void:
 func _on_effect_added(effect: String) -> void:
 	if effect_icons.has(effect):
 		effect_icons[effect].visible = true
-		print(str(effect) + " is visible")
 	
 func _on_effect_removed(effect: String) -> void:
 	if effect_icons.has(effect):
