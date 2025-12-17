@@ -31,7 +31,7 @@ func _ready():
 	minimap.init_explored(map_generator.width, map_generator.height)
 	position_player(map_generator)
 	add_markers_on_map(map_generator)
-
+	
 	spawn_random_at_markers(["BAT", "MOTH"], "MIRROR", map_generator.air_markers, map_generator)
 	spawn_random_at_markers(["STACTALITE"], "SPIKETRAP", map_generator.ceiling_markers, map_generator)
 	spawn_random_at_markers(["SPIDER"], "", map_generator.side_markers, map_generator)
