@@ -33,12 +33,16 @@ func _ready():
 	sfx_fly.play()
 
 func perform_idle(delta):
-	velocity = velocity.move_toward(Vector2.ZERO, ACCELERATION * delta)
-	update_sprite_and_ray("flying", "left")
+	var direction_away = (global_position - player.global_position).normalized()
+	var flee_speed = FLY_SPEED * 0.5
+	var target_velocity = direction_away * flee_speed
+	velocity = velocity.move_toward(target_velocity, ACCELERATION * delta)
+	if velocity.x > 0:
+		update_sprite_and_ray("flying", "right")
+	else:
+		update_sprite_and_ray("flying", "left")
 	move_and_slide()
 	check_body_collision()
-	
-	sfx_fly.pitch_scale = lerp(sfx_fly.pitch_scale, 0.8, 5 * delta)
 
 func perform_chase(delta):
 	var target_dir = (player.global_position - global_position).normalized()
@@ -90,17 +94,15 @@ func check_body_collision():
 		var collider = col.get_collider()
 		
 		if collider and collider.is_in_group("player"):
-			# BLOQUEO INMEDIATO
 			can_deal_damage = false
 			
 			if collider.has_method("take_damage"):
 				collider.take_damage()
 				start_damage_interval()
 				velocity = (global_position - collider.global_position).normalized() * 200
-				return # Salimos para no registrar más golpes en este frame
+				return
 
 func start_damage_interval():
-	# can_deal_damage ya es false, solo esperamos para activarlo
 	var tree = get_tree()
 	if tree:
 		await tree.create_timer(1.0).timeout
