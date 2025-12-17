@@ -1,6 +1,5 @@
 extends StaticBody2D
 
-@onready var area: Area2D = $Area2D
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var det: Area2D = $DetectionArea
 @onready var coll: CollisionShape2D = $CollisionShape2D

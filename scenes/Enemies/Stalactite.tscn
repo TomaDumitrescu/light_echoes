@@ -70,7 +70,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_vow3w")
 }],
 "loop": false,
-"name": &"atack",
+"name": &"attack",
 "speed": 5.0
 }, {
 "frames": [{
@@ -142,7 +142,7 @@ position = Vector2(0, -5)
 rotation = 6.28319
 scale = Vector2(0.667, 0.5)
 sprite_frames = SubResource("SpriteFrames_5n2j5")
-animation = &"destroy"
+animation = &"attack"
 
 [node name="VisibleOnScreenEnabler2D" parent="." index="5"]
 rect = Rect2(-10, -341, 20, 491.333)

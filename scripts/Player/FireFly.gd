@@ -289,8 +289,8 @@ func handle_beam_reflection():
 		global_position += aim_dir * 2.0
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
-	if beam_mode:
-		if body.is_in_group("enemies"):
+	if beam_mode:	
+		if body.is_in_group("enemies") and body.reactivity == 1: #body.reac == 1 is reactive to particle -> burn if light
 			if body.has_method("die"):
 				body.die()
 			else:
