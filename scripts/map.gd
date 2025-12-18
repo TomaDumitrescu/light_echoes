@@ -2,6 +2,7 @@ extends TileMap
 class_name Map
 
 const TILE_SIZE = 64
+const MAP_SIZE = 64
 
 const BACKGROUND_LAYER = 0
 const FOREGROUND_LAYER = 1

@@ -29,13 +29,17 @@ func _ready():
 func spawn_webs():
 	for i in range(NUMBER_WEBS):
 		var web = WEB.instantiate()
-		get_parent().add_child(web)
 		web.scale = Vector2(WEB_SIZE, WEB_SIZE)
 		var angle = randf() * TAU
 		var dist = randf() * WEB_RADIUS
 		var offset = Vector2(cos(angle), sin(angle)) * dist
 		web.global_position = global_position + offset
 
+		var nPos: Vector2i = MapGenerator.get_tilemap_coords(web.global_position)
+		if !(MapGenerator.is_in_map(nPos[1], nPos[0], Map.MAP_SIZE, Map.MAP_SIZE)) or !(MapGenerator.map[nPos[0]][nPos[1]] == MapGenerator.FLOOR):
+			continue
+
+		get_parent().add_child(web)
 		web.player_trapped.connect(_on_player_trapped)
 		web.player_released.connect(_on_player_released)
 		

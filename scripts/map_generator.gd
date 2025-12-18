@@ -17,7 +17,7 @@ const EXIT := 2
 @export var min_wall_markers = 10
 @export var max_wall_markers = 20
 
-var map := []
+static var map := []
 var ground_markers: Array[Vector2i] = []
 var air_markers: Array[Vector2i] = []
 var ceiling_markers: Array[Vector2i] = []
@@ -398,6 +398,8 @@ func get_line(a: Vector2i, b: Vector2i) -> Array:
 
 	return line
 
+static func get_tilemap_coords(pos: Vector2) -> Vector2i:
+	return Vector2i(pos[0] / Map.TILE_SIZE, pos[1] / Map.TILE_SIZE)
 
 # ----------------------------------------
 # ROOM CLASS

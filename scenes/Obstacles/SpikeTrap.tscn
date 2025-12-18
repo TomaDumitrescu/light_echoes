@@ -35,7 +35,7 @@ rotation = 3.14159
 script = ExtResource("1_ffp8i")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-32, -32)
+position = Vector2(-32, 32)
 scale = Vector2(0.82, 0.552)
 shape = SubResource("RectangleShape2D_ffp8i")
 
@@ -48,7 +48,7 @@ animation = &"idle"
 [node name="DetectionArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
-position = Vector2(-32, -32)
+position = Vector2(-32, 32)
 scale = Vector2(0.1, 0.08)
 shape = SubResource("CircleShape2D_6csfp")
 
