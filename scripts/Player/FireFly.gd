@@ -11,6 +11,7 @@ class_name Player
 @onready var lightSound: AudioStreamPlayer2D = $LightSound
 @onready var rebote_sound: AudioStreamPlayer2D = $ReboteSound
 @onready var mirror_rebote_sound: AudioStreamPlayer2D = $MirrorReboteSound
+@onready var dying_sound: AudioStreamPlayer2D = $DyingSound
 
 @export var BASE_SPEED: float = 220.0
 
@@ -217,6 +218,17 @@ func take_damage():
 func die():
 	if not dead:
 		dead = true
+		set_physics_process(false)
+		velocity = Vector2.ZERO
+		if trail_line: trail_line.clear_points()
+		if sparkles: sparkles.emitting = false
+		if flying_sound: flying_sound.stop()
+		if lightSound: lightSound.stop()
+		if sprite.sprite_frames.has_animation("die"):
+			sprite.play("die")
+			dying_sound.play()
+			await sprite.animation_finished
+
 		ScoreSaver.save_score(PlayerStats.score, PlayerStats.current_level)
 		get_tree().change_scene_to_file("res://scenes/game_over.tscn")
 

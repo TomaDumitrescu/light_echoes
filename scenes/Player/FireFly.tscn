@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://dyalngqcj1yvh"]
+[gd_scene load_steps=46 format=3 uid="uid://dyalngqcj1yvh"]
 
 [ext_resource type="Script" uid="uid://7ryoxqe1gyvq" path="res://scripts/Player/FireFly.gd" id="1_bo3ie"]
 [ext_resource type="Texture2D" uid="uid://dy12x3d8m23kq" path="res://textures/Assets/Firefly.png" id="2_d78j5"]
@@ -8,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://dwsejgmtkvwfm" path="res://audio/sounds/enemies/BatWingFlap2.wav" id="6_axwqd"]
 [ext_resource type="AudioStream" uid="uid://dm66dpe2jtfsc" path="res://audio/sounds/enemies/FireflyTransform.wav" id="7_bg4pc"]
 [ext_resource type="AudioStream" uid="uid://c0miy8gbqpm3d" path="res://audio/sounds/enemies/LightSound.wav" id="8_dl75d"]
+[ext_resource type="AudioStream" uid="uid://o4dqaivpbdab" path="res://audio/sounds/enemies/BurnSound.wav" id="9_bg4pc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bo3ie"]
 size = Vector2(19, 18)
@@ -318,5 +319,11 @@ pitch_scale = 10.0
 stream = ExtResource("8_dl75d")
 volume_db = -1.869
 pitch_scale = 1.26
+
+[node name="DyingSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_bg4pc")
+volume_db = 5.725
+pitch_scale = 0.6
+attenuation = 2.0
 
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
