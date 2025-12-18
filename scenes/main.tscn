@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://lxq0vdvat0lp"]
+[gd_scene load_steps=25 format=3 uid="uid://lxq0vdvat0lp"]
 
 [ext_resource type="Script" uid="uid://8nx70rpyxysu" path="res://scripts/main.gd" id="1_aabo0"]
 [ext_resource type="Texture2D" uid="uid://dx36vc0te04h" path="res://textures/rock.jpg" id="3_ppfhr"]
@@ -11,7 +11,11 @@
 [ext_resource type="Script" uid="uid://8vkyu23ccndk" path="res://scripts/mini_map.gd" id="8_u66ay"]
 [ext_resource type="PackedScene" uid="uid://dyalngqcj1yvh" path="res://scenes/Player/FireFly.tscn" id="11_ya4ey"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="12_a8y0u"]
+[ext_resource type="Texture2D" uid="uid://cpktarykur4xk" path="res://textures/Assets/TileSetCave&BG/ParallaxCave4.png" id="13_jbj1t"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="13_jkv2x"]
+[ext_resource type="Texture2D" uid="uid://dc44f3rukdyp6" path="res://textures/Assets/TileSetCave&BG/ParallaxCave3.png" id="14_muem4"]
+[ext_resource type="Texture2D" uid="uid://dtofmipkjbx5o" path="res://textures/ParallaxCave2.png" id="15_dp3eg"]
+[ext_resource type="Texture2D" uid="uid://3voa6jv8pb3v" path="res://textures/Assets/TileSetCave&BG/ParallaxCave1.png" id="16_0ld40"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3ptkp"]
 
@@ -102,4 +106,47 @@ follow_damping = true
 follow_damping_value = Vector2(0.5, 0.5)
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scale = Vector2(6, 6)
+transform = Transform2D(6, 0, 0, 6, 0, 0)
+
+[node name="Parallax2D" type="Parallax2D" parent="ParallaxBackground"]
+z_index = -1
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Parallax2D"]
+texture = ExtResource("13_jbj1t")
+
+[node name="Parallax2D2" type="Parallax2D" parent="ParallaxBackground"]
+z_index = -1
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Parallax2D2"]
+texture = ExtResource("14_muem4")
+
+[node name="Parallax2D3" type="Parallax2D" parent="ParallaxBackground"]
+z_index = -1
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Parallax2D3"]
+texture = ExtResource("15_dp3eg")
+
+[node name="Parallax2D4" type="Parallax2D" parent="ParallaxBackground"]
+z_index = -1
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Parallax2D4"]
+texture = ExtResource("16_0ld40")
+
+[connection signal="body_entered" from="TileMap/Exit" to="TileMap/Exit" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@21304" to="TileMap/@Area2D@21304" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@21305" to="TileMap/@Area2D@21305" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@21306" to="TileMap/@Area2D@21306" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@21307" to="TileMap/@Area2D@21307" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@21308" to="TileMap/@Area2D@21308" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@21309" to="TileMap/@Area2D@21309" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@21310" to="TileMap/@Area2D@21310" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@21311" to="TileMap/@Area2D@21311" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@21312" to="TileMap/@Area2D@21312" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@21313" to="TileMap/@Area2D@21313" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@21314" to="TileMap/@Area2D@21314" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@21315" to="TileMap/@Area2D@21315" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@21316" to="TileMap/@Area2D@21316" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@21317" to="TileMap/@Area2D@21317" method="_on_body_entered"]
 [connection signal="timeout" from="FireFly/NextLevelTimer" to="FireFly" method="_on_next_level_timer_timeout"]
