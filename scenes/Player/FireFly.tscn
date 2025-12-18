@@ -288,6 +288,7 @@ gradient = SubResource("Gradient_6jcmr")
 joint_mode = 2
 
 [node name="Sparkle" parent="." instance=ExtResource("5_d78j5")]
+visible = false
 texture_filter = 1
 
 [node name="AudioListener2D" type="AudioListener2D" parent="."]

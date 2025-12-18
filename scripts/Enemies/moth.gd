@@ -3,7 +3,7 @@ class_name FlyingEnemy2
 
 # --- Configuración ---
 @export var FLY_SPEED: float = 150.0
-@export var DASH_IMPULSE: float = 800.0
+@export var DASH_IMPULSE: float = 400.0
 @export var ACCELERATION: float = 300.0
 @export var ATTACK_RANGE_TRIGGER: float = 150.0 
 @export var PERCEPTION_RANGE_VAL: float = 400.0
@@ -39,7 +39,7 @@ func _ready():
 func perform_idle(delta):
 	# Comportamiento de huida en reposo (se aleja del jugador)
 	var direction_away = (global_position - player.global_position).normalized()
-	var flee_speed = FLY_SPEED * 0.5
+	var flee_speed = FLY_SPEED * 0.3
 	var target_velocity = direction_away * flee_speed
 	velocity = velocity.move_toward(target_velocity, ACCELERATION * delta)
 	
