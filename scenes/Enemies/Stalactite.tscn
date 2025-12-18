@@ -151,9 +151,11 @@ rect = Rect2(-10, -341, 20, 491.333)
 stream = ExtResource("4_36ja2")
 volume_db = -5.724
 pitch_scale = 3.01
+bus = &"SFX"
 
 [node name="SfxBreak" type="AudioStreamPlayer2D" parent="." index="7"]
 stream = ExtResource("5_wyyvv")
 volume_db = -24.807
 pitch_scale = 2.5
 attenuation = 2.21914
+bus = &"SFX"

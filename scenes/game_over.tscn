@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://gagj4viay8wt"]
+[gd_scene load_steps=5 format=3 uid="uid://gagj4viay8wt"]
 
 [ext_resource type="Script" uid="uid://chfwy76x005j3" path="res://scripts/game_over.gd" id="1_tbwuq"]
-[ext_resource type="Texture2D" uid="uid://b4a3u1x3qgxu1" path="res://textures/background.jpg" id="1_wqhvx"]
+[ext_resource type="Texture2D" uid="uid://ikiy7jtgwbr5" path="res://textures/game_over.png" id="2_racf3"]
+[ext_resource type="Texture2D" uid="uid://ck6k58xedl3a3" path="res://textures/Butttons-Menu/1.png" id="3_7m3ot"]
+[ext_resource type="Texture2D" uid="uid://cp7eihsplpbje" path="res://textures/Butttons-Menu/2.png" id="4_v3hpu"]
 
 [node name="GameOver" type="Control"]
 layout_mode = 3
@@ -12,10 +14,12 @@ script = ExtResource("1_tbwuq")
 layout_mode = 0
 offset_right = 1153.0
 offset_bottom = 649.0
-texture = ExtResource("1_wqhvx")
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("2_racf3")
 stretch_mode = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 34.0
 offset_top = 43.0
@@ -23,6 +27,7 @@ offset_right = 1113.0
 offset_bottom = 536.0
 
 [node name="Label" type="Label" parent="VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "You died!"
@@ -60,7 +65,43 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "Menu"
 
+[node name="RetryButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 311.0
+offset_top = 538.0
+offset_right = 815.0
+offset_bottom = 701.0
+scale = Vector2(0.51, 0.51)
+theme_override_font_sizes/font_size = 36
+icon = ExtResource("3_7m3ot")
+
+[node name="MenuButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 585.0
+offset_top = 534.0
+offset_right = 1193.0
+offset_bottom = 703.0
+scale = Vector2(0.51, 0.51)
+theme_override_font_sizes/font_size = 36
+icon = ExtResource("4_v3hpu")
+
+[node name="ScoreLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 81.0
+offset_right = 157.0
+offset_bottom = 174.0
+theme_override_font_sizes/font_size = 32
+text = "Score: 0
+Level: 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="button_down" from="VBoxContainer/RetryButton" to="." method="_on_retry_button_button_down"]
 [connection signal="mouse_entered" from="VBoxContainer/RetryButton" to="." method="_on_retry_button_mouse_entered"]
 [connection signal="button_down" from="VBoxContainer/MenuButton" to="." method="_on_menu_button_button_down"]
 [connection signal="mouse_entered" from="VBoxContainer/MenuButton" to="." method="_on_menu_button_mouse_entered"]
+[connection signal="button_down" from="RetryButton" to="." method="_on_retry_button_button_down"]
+[connection signal="mouse_entered" from="RetryButton" to="." method="_on_retry_button_mouse_entered"]
+[connection signal="button_down" from="MenuButton" to="." method="_on_menu_button_button_down"]
+[connection signal="mouse_entered" from="MenuButton" to="." method="_on_menu_button_mouse_entered"]
