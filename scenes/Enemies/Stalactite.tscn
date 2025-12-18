@@ -136,6 +136,9 @@ FALL_ATTACK_RANGE = 200.0
 FALL_PERCEPTION_RANGE = 500.0
 WAIT_UNTIL_IDLE = 3.0
 
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(-0.33333334, -6.3333335)
+
 [node name="AnimatedSprite2D" parent="." index="1"]
 texture_filter = 1
 position = Vector2(0, -5)

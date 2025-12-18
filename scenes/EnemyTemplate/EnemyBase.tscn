@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bbbi8vd23n4tf" path="res://scripts/EnemyTemplate/EnemyBase.gd" id="1_gjhpl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qio21"]
-radius = 11.0
+radius = 4.013865
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gjhpl"]
 
