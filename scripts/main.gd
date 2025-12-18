@@ -46,14 +46,91 @@ func add_markers_on_map(map_generator):
 	map.add_side_elements(map_generator.side_markers, player.global_position / Map.TILE_SIZE)
 	map.add_corner_elements(map_generator.lava_markers)
 
+var dx = [-1, 0, 1, 0]
+var dy = [0, 1, 0, -1]
+func is_dist_ok(player_cell: Vector2i, markers: Array[Vector2i]):
+	for m in markers:
+		if m.distance_to(player_cell) <= 3:
+			return false
+	return true
+
+func h(start: Vector2i, end: Vector2i) -> float:
+	return start.distance_to(end)
+
+func calculate_path(map_generator: MapGenerator, startn: Vector2i, endn: Vector2i) -> bool:
+	if !map_generator.is_walkable(startn[0], startn[1]):
+		return false
+	var open = PriorityQueue.new()
+	var g_score = {}
+	var f_score = {}
+
+	for x in range(0, map_generator.width):
+		for y in range(0, map_generator.height):
+			g_score[Vector2i(x, y)] = pow(map_generator.width * map_generator.height, 4)
+			f_score[Vector2i(x, y)] = pow(map_generator.width * map_generator.height, 4)
+
+	g_score[startn] = 0
+	f_score[startn] = h(startn, endn)
+
+	open.push(startn, f_score[startn])
+
+	var closed = {}
+	while !open.is_empty():
+		var current = open.peek_min()
+		var node = current["value"]
+		if node == endn:
+			return true
+
+		open.pop_min()
+		var x = node[0]
+		var y = node[1]
+		var distance = current["priority"]
+		
+		if closed.has(node):
+			continue
+		closed[node] = true
+
+		for v in range(0, 4):
+			var xv = x + dx[v]
+			var yv = y + dy[v]
+
+			if xv < 0 or xv >= map_generator.width or yv < 0 or yv >= map_generator.height or !(map_generator.is_walkable(xv, yv) or map_generator.map[xv][yv] == MapGenerator.EXIT):
+				continue
+
+			var tentative_g = g_score[node] + 1
+			var neighbor = Vector2i(xv, yv)
+			
+			if closed.has(neighbor):
+				continue
+
+			if tentative_g < g_score[neighbor]:
+				g_score[neighbor] = tentative_g
+				f_score[neighbor] = tentative_g + h(neighbor, endn)
+
+			if !open.container.has(neighbor):
+				open.push(neighbor, f_score[neighbor])
+
+	return false
+
 func position_player(map_generator: MapGenerator):
 	var player_cell = null
-	var max_iterations = 100
+	var max_iterations = 1000
 
 	while max_iterations > 0:
 		max_iterations -= 1
 		player_cell = map_generator.get_empty_cell()
-		if player_cell.distance_to(map_generator.exit_cell) >= (map.map_width  - 2) / 2:
+
+		if !is_dist_ok(player_cell, map_generator.lava_markers) or !is_dist_ok(player_cell, map_generator.ground_markers):
+			continue
+
+		if !is_dist_ok(player_cell, map_generator.ceiling_markers) or !is_dist_ok(player_cell, map_generator.air_markers) or !is_dist_ok(player_cell, map_generator.side_markers):
+			continue
+
+		if !calculate_path(map_generator, player_cell, map_generator.exit_cell):
+			print("WHAT")
+			continue
+
+		if player_cell.distance_to(map_generator.exit_cell) >= (map.map_width  - 2) / 2 or max_iterations < 100:
 			break
 
 	player.global_position = player_cell * Map.TILE_SIZE
