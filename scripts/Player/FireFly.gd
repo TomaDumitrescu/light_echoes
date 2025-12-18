@@ -12,6 +12,7 @@ class_name Player
 @onready var rebote_sound: AudioStreamPlayer2D = $ReboteSound
 @onready var mirror_rebote_sound: AudioStreamPlayer2D = $MirrorReboteSound
 @onready var dying_sound: AudioStreamPlayer2D = $DyingSound
+@onready var atack_sound: AudioStreamPlayer2D = $AtackSound
 
 # --- NUEVO: Referencia a la escena de la onda ---
 @export var SOUND_WAVE_SCENE: PackedScene 
@@ -117,8 +118,8 @@ func shoot_sound_wave():
 	var mouse_pos = get_global_mouse_position()
 	var direction = (mouse_pos - global_position).normalized()
 	wave.direction = direction
+	atack_sound.play()
 	get_parent().add_child(wave)
-	
 	can_attack = false
 	get_tree().create_timer(ATTACK_COOLDOWN).timeout.connect(func(): can_attack = true)
 
