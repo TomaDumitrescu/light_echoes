@@ -1,7 +1,8 @@
-[gd_scene load_steps=46 format=3 uid="uid://dyalngqcj1yvh"]
+[gd_scene load_steps=47 format=3 uid="uid://dyalngqcj1yvh"]
 
 [ext_resource type="Script" uid="uid://7ryoxqe1gyvq" path="res://scripts/Player/FireFly.gd" id="1_bo3ie"]
 [ext_resource type="Texture2D" uid="uid://dy12x3d8m23kq" path="res://textures/Assets/Firefly.png" id="2_d78j5"]
+[ext_resource type="PackedScene" uid="uid://c73kgpmavxsyh" path="res://scenes/Player/sound_wave.tscn" id="2_dl75d"]
 [ext_resource type="Texture2D" uid="uid://kjnkpxy2h384" path="res://textures/Assets/ball2.png" id="3_lb2sn"]
 [ext_resource type="PackedScene" uid="uid://c25mo4jdm6w75" path="res://scenes/UI/PlayerUI.tscn" id="4_y75uk"]
 [ext_resource type="PackedScene" uid="uid://du4x8pws7r0i" path="res://scenes/Player/Sparkle.tscn" id="5_d78j5"]
@@ -266,6 +267,7 @@ radius = 14.0
 
 [node name="FireFly" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_bo3ie")
+SOUND_WAVE_SCENE = ExtResource("2_dl75d")
 
 [node name="PlayerUI" parent="." instance=ExtResource("4_y75uk")]
 

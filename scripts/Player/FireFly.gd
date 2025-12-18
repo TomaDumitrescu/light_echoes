@@ -13,6 +13,9 @@ class_name Player
 @onready var mirror_rebote_sound: AudioStreamPlayer2D = $MirrorReboteSound
 @onready var dying_sound: AudioStreamPlayer2D = $DyingSound
 
+# --- NUEVO: Referencia a la escena de la onda ---
+@export var SOUND_WAVE_SCENE: PackedScene 
+
 @export var BASE_SPEED: float = 220.0
 
 @export var wave_frequency: float = 20.0 
@@ -39,6 +42,10 @@ var current_gravity: float = 0.0
 @export var SLIME_GRAVITY: float = 6000.0
 @export var WEBBED_MULT: float = 0.5
 @export var SPEED_MULT: float = 1.5
+
+# --- NUEVO: Variables de ataque ---
+@export var ATTACK_COOLDOWN: float = 1.5 # Tiempo de espera entre ataques
+var can_attack: bool = true
 
 var hearts_list: Array[TextureRect] = []
 var health = 3
@@ -69,7 +76,12 @@ func _physics_process(delta):
 	# Cambio de modo
 	if Input.is_action_just_pressed("space") and not is_transforming:
 		toggle_mode()
-		
+
+	# --- NUEVO: Lógica de disparo (Click izquierdo) ---
+	# Asegúrate de que "particle_mode" sea true
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and particle_mode and can_attack and not is_transforming:
+		shoot_sound_wave()
+
 	if slimed:
 		slimed_timer -= delta
 		if slimed_timer <= 0:
@@ -94,6 +106,22 @@ func _physics_process(delta):
 		handle_beam_reflection()
 	
 	if sparkles: sparkles.emitting = particle_mode
+
+func shoot_sound_wave():
+	if not SOUND_WAVE_SCENE:
+		print("Error: No has asignado la escena SOUND_WAVE_SCENE en el Inspector")
+		return
+
+	var wave = SOUND_WAVE_SCENE.instantiate()
+	wave.global_position = global_position
+	var mouse_pos = get_global_mouse_position()
+	var direction = (mouse_pos - global_position).normalized()
+	wave.direction = direction
+	get_parent().add_child(wave)
+	
+	can_attack = false
+	get_tree().create_timer(ATTACK_COOLDOWN).timeout.connect(func(): can_attack = true)
+
 
 func apply_gravity(delta):
 	velocity.y += current_gravity * delta
@@ -122,9 +150,9 @@ func move_light(delta: float):
 	if trail_line:
 		time_elapsed += delta
 		var new_point_data = {
-			"center_pos": global_position,     
-			"normal": aim_dir.orthogonal(),     
-			"spawn_time": time_elapsed          
+			"center_pos": global_position,      
+			"normal": aim_dir.orthogonal(),      
+			"spawn_time": time_elapsed           
 		}
 		path_history.push_front(new_point_data)
 		
@@ -168,7 +196,7 @@ func toggle_mode():
 		sprite.play("to_light")
 		time_elapsed = 0.0
 		if flying_sound: flying_sound.stop()
-		if lightSound: lightSound.play()    
+		if lightSound: lightSound.play()     
 		
 		if trail_line: 
 			trail_line.modulate.a = 1.0
@@ -244,7 +272,7 @@ func apply_status_effect(effect: String):
 		PlayerStats.add_effect(effect)
 		
 	if effect == "webbed": 
-		pass	#handled by recalc_effects()
+		pass    #handled by recalc_effects()
 	
 	if effect == "speedy":
 		fast = true
@@ -261,7 +289,7 @@ func remove_status_effect(effect: String):
 		PlayerStats.remove_effect(effect)
 		
 	if effect == "webbed": 
-		pass	#handled by recalc_effects()
+		pass    #handled by recalc_effects()
 	
 	if effect == "speedy":
 		fast = false
@@ -306,7 +334,7 @@ func handle_beam_reflection():
 		global_position += aim_dir * 2.0
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
-	if beam_mode:	
+	if beam_mode:    
 		if body.is_in_group("enemies") and body.reactivity == 1: #body.reac == 1 is reactive to particle -> burn if light
 			if body.has_method("die"):
 				body.die()

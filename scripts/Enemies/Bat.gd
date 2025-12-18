@@ -1,8 +1,8 @@
 extends EnemyBase
 class_name FlyingEnemy
 
-@export var FLY_SPEED: float = 150.0
-@export var DASH_IMPULSE: float = 800.0
+@export var FLY_SPEED: float = 100.0
+@export var DASH_IMPULSE: float = 400.0
 @export var ACCELERATION: float = 300.0
 @export var ATTACK_RANGE_TRIGGER: float = 150.0 
 @export var PERCEPTION_RANGE_VAL: float = 400.0

@@ -54,7 +54,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_c87qa"]
 radius = 13.670732
 
-[node name="CharacterBody2D" groups=["enemies"] instance=ExtResource("1_ddarh")]
+[node name="CharacterBody2D" groups=["enemies", "moth"] instance=ExtResource("1_ddarh")]
 scale = Vector2(3, 3)
 script = ExtResource("2_4c1do")
 FLY_SPEED = 150.0

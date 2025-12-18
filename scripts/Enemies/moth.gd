@@ -34,7 +34,7 @@ func _ready():
 	if not animated.animation_finished.is_connected(_on_animation_finished):
 		animated.animation_finished.connect(_on_animation_finished)
 	
-	# if sfx_fly: sfx_fly.play()
+	if sfx_fly: sfx_fly.play()
 
 func perform_idle(delta):
 	# Comportamiento de huida en reposo (se aleja del jugador)
