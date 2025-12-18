@@ -1,6 +1,10 @@
 extends Node2D
 
+@onready var home: Button = $Home
 
+func _ready() -> void:
+	home.flat = true
+	
 func _on_home_button_down() -> void:
 	AudioManager.play_sfx_on_bus(AudioManager.click_sfx,AudioManager.ui_bus_name)
 	get_tree().change_scene_to_file("res://scenes/menu.tscn")

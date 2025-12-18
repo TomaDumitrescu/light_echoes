@@ -1,6 +1,8 @@
 extends Control
 
 @onready var score_label: Label = $VBoxContainer/ScoreLabel
+@onready var retry_button: Button = $RetryButton
+@onready var menu_button: Button = $MenuButton
 
 func _ready():
 	AudioManager.stop_music()
@@ -8,6 +10,8 @@ func _ready():
 	AudioManager.play_menu_music()
 	score_label.text = "Score: " + str(PlayerStats.score) + "\nLevel: " + str(PlayerStats.current_level)
 	PlayerStats.reset_score()
+	retry_button.flat = true
+	menu_button.flat = true
 	pass
 
 func _on_menu_button_button_down():

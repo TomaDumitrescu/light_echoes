@@ -136,5 +136,6 @@ frame_progress = 0.0741927
 
 [node name="WebContainer" type="Node2D" parent="." index="4"]
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." index="7"]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." index="6"]
+process_mode = 3
 bus = &"SFX"

@@ -69,7 +69,8 @@ texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_uylkx")
 animation = &"attack"
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." index="6"]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." index="5"]
+process_mode = 3
 
 [node name="Area2D" type="Area2D" parent="." index="7"]
 position = Vector2(2, 0)

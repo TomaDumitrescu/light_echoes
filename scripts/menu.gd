@@ -1,7 +1,11 @@
 extends Control
+@onready var play_button: Button = $PlayButton
+@onready var button: Button = $Button
 
 func _ready() -> void:
 	AudioManager.play_menu_music()
+	play_button.flat = true
+	button.flat = true
 
 func _on_play_button_button_down():
 	AudioManager.play_sfx_on_bus(AudioManager.click_sfx,AudioManager.ui_bus_name)

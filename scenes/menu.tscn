@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cukmhkb7vgxxy"]
+[gd_scene load_steps=9 format=3 uid="uid://cukmhkb7vgxxy"]
 
 [ext_resource type="Script" uid="uid://db0nggb4scm7s" path="res://scripts/menu.gd" id="1_con2f"]
 [ext_resource type="Texture2D" uid="uid://b4a3u1x3qgxu1" path="res://textures/background.jpg" id="1_vjb58"]
@@ -10,6 +10,10 @@
 variation_embolden = 0.63
 spacing_glyph = 10
 spacing_space = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ytvr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g3eks"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -67,6 +71,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.7, 0.7)
 theme_override_font_sizes/font_size = 32
+theme_override_styles/hover = SubResource("StyleBoxFlat_4ytvr")
 icon = ExtResource("4_mhnvy")
 
 [node name="Button" type="Button" parent="."]
@@ -76,6 +81,7 @@ offset_top = 398.0
 offset_right = 1290.0
 offset_bottom = 569.0
 scale = Vector2(0.52, 0.52)
+theme_override_styles/hover = SubResource("StyleBoxFlat_g3eks")
 icon = ExtResource("5_4ytvr")
 
 [connection signal="button_down" from="PlayButton" to="." method="_on_play_button_button_down"]
