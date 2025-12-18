@@ -7,16 +7,20 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f4mfi"]
 
-[node name="Settings" type="Node2D"]
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_f4mfi")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 650.0
 scale = Vector2(0.42, 0.42)
 texture = ExtResource("1_r6d6q")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
 offset_left = 765.0
 offset_top = 202.0
 offset_right = 1015.0
@@ -65,6 +69,7 @@ script = ExtResource("2_6wm04")
 bus_name = "UI"
 
 [node name="Home" type="Button" parent="."]
+layout_mode = 0
 offset_left = 713.0
 offset_top = 490.0
 offset_right = 1217.0
