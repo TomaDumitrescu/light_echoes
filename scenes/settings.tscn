@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://cvin3beraqody"]
 
-[ext_resource type="Script" uid="uid://cnqukvria25a7" path="res://scenes/settings.gd" id="1_f4mfi"]
+[ext_resource type="Script" uid="uid://cnqukvria25a7" path="res://scripts/settings.gd" id="1_f4mfi"]
 [ext_resource type="Texture2D" uid="uid://b8l67msa4vfmd" path="res://textures/Menu_Background_logo_left.png" id="1_r6d6q"]
-[ext_resource type="Script" uid="uid://vkk4wyvc40r4" path="res://scenes/music.gd" id="2_6wm04"]
+[ext_resource type="Script" uid="uid://vkk4wyvc40r4" path="res://scripts/music.gd" id="2_6wm04"]
 [ext_resource type="Texture2D" uid="uid://cp7eihsplpbje" path="res://textures/Butttons-Menu/2.png" id="4_es4n0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f4mfi"]
@@ -77,3 +77,4 @@ icon = ExtResource("4_es4n0")
 [connection signal="mouse_entered" from="VBoxContainer/SFX" to="." method="_on_sfx_mouse_entered"]
 [connection signal="mouse_entered" from="VBoxContainer/UI" to="." method="_on_ui_mouse_entered"]
 [connection signal="button_down" from="Home" to="." method="_on_home_button_down"]
+[connection signal="mouse_entered" from="Home" to="." method="_on_home_mouse_entered"]
