@@ -113,7 +113,7 @@ func start_damage_interval():
 func die():
 	set_physics_process(false)
 	collision.set_deferred("disabled", true)
-	PlayerStats.add_points(20)
+	PlayerStats.add_points(5)
 	
 	sfx_fly.stop()
 	sfx_die.play()

@@ -84,11 +84,9 @@ func perform_dash_impulse(dir):
 		animated.flip_h = true
 		
 	animated.play("attack")
-	
-	# Reproducir sonido de ataque si existe
-	# if sfx_attack:
-	# 	sfx_attack.pitch_scale = randf_range(0.9, 1.1)
-	# 	sfx_attack.play()
+
+	if sfx_attack:
+		sfx_attack.play()
 
 func _on_animation_finished():
 	if animated.animation == "attack":
@@ -102,14 +100,12 @@ func check_body_collision():
 		var collider = col.get_collider()
 		
 		if collider and collider.is_in_group("player"):
-			# AQUI ESTÁ EL CAMBIO PRINCIPAL:
-			# Verifica si tiene el método Y si está en modo BEAM (Luz) 
+
 			if collider.has_method("take_damage") and collider.is_beam_mode():
 				can_deal_damage = false
 				collider.take_damage()
 				start_damage_interval()
-				
-				# Rebote fuerte tras golpear al jugador
+
 				velocity = (global_position - collider.global_position).normalized() * 200
 				return
 
@@ -127,13 +123,13 @@ func perform_attack(delta):
 func die():
 	set_physics_process(false)
 	collision.set_deferred("disabled", true)
-	PlayerStats.add_points(20)
-	
+	PlayerStats.add_points(5)
 	if sfx_fly: sfx_fly.stop()
 	if sfx_die: sfx_die.play()
-	
 	animated.play("dying")
-	if animated.sprite_frames.has_animation("dying"):
-		await animated.animation_finished
-	
-	queue_free()
+	var tween = create_tween()
+	tween.set_parallel(true) 
+	tween.tween_property(self, "position:y", position.y + 300, 1.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	tween.tween_property(self, "rotation_degrees", 90.0, 1.5)
+	tween.tween_property(self, "modulate:a", 0.0, 1.5)
+	tween.chain().tween_callback(queue_free)

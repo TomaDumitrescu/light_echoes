@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://bo413oj7ualyj"]
+[gd_scene load_steps=12 format=3 uid="uid://bo413oj7ualyj"]
 
 [ext_resource type="PackedScene" uid="uid://ddtw1de31gtve" path="res://scenes/EnemyTemplate/EnemyBase.tscn" id="1_ddarh"]
 [ext_resource type="Script" uid="uid://3by08djo22qk" path="res://scripts/Enemies/moth.gd" id="2_4c1do"]
 [ext_resource type="Texture2D" uid="uid://kge7s8oof78x" path="res://textures/Assets/Moth.png" id="3_4c1do"]
 [ext_resource type="AudioStream" uid="uid://ccyiyvpixt16d" path="res://audio/sounds/enemies/159355__huminaatio__6-wing-effect.wav" id="4_ddarh"]
+[ext_resource type="AudioStream" uid="uid://dv4insl3h3djx" path="res://audio/sounds/enemies/Dash.wav" id="5_v5fk5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ddarh"]
 atlas = ExtResource("3_4c1do")
@@ -86,3 +87,10 @@ shape = SubResource("CircleShape2D_c87qa")
 stream = ExtResource("4_ddarh")
 volume_db = -13.358
 pitch_scale = 5.0
+
+[node name="AtackSound" type="AudioStreamPlayer2D" parent="." index="9"]
+process_mode = 3
+stream = ExtResource("5_v5fk5")
+volume_db = -17.175
+pitch_scale = 3.39
+bus = &"SFX"
