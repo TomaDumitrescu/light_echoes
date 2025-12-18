@@ -78,14 +78,14 @@ layer_0/modulate = Color(1, 1, 1, 0.501961)
 script = ExtResource("8_u66ay")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." groups=["environment", "moth"]]
-color = Color(0.04287207, 0.088426106, 0.28703338, 1)
+color = Color(0.19497031, 0.25580126, 0.5179797, 1)
 
 [node name="FireFly" parent="." instance=ExtResource("11_ya4ey")]
 scale = Vector2(3, 3)
 
 [node name="PointLight2D" type="PointLight2D" parent="FireFly"]
 position = Vector2(64, 64)
-color = Color(0.796078, 0.615686, 0.0235294, 1)
+color = Color(0.77406913, 0.6249987, 1.1551381e-06, 1)
 energy = 2.8
 texture = ExtResource("7_choun")
 texture_scale = 6.0
@@ -102,21 +102,4 @@ follow_damping = true
 follow_damping_value = Vector2(0.5, 0.5)
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
-[node name="Parallax2D" type="Parallax2D" parent="."]
-
-[connection signal="body_entered" from="TileMap/Exit" to="TileMap/Exit" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@49976" to="TileMap/@Area2D@49976" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@49977" to="TileMap/@Area2D@49977" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@49978" to="TileMap/@Area2D@49978" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@49979" to="TileMap/@Area2D@49979" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@49980" to="TileMap/@Area2D@49980" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@49981" to="TileMap/@Area2D@49981" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@49982" to="TileMap/@Area2D@49982" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@49983" to="TileMap/@Area2D@49983" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@49984" to="TileMap/@Area2D@49984" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@49985" to="TileMap/@Area2D@49985" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@49986" to="TileMap/@Area2D@49986" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@49987" to="TileMap/@Area2D@49987" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@49988" to="TileMap/@Area2D@49988" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@49989" to="TileMap/@Area2D@49989" method="_on_body_entered"]
 [connection signal="timeout" from="FireFly/NextLevelTimer" to="FireFly" method="_on_next_level_timer_timeout"]
