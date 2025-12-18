@@ -19,11 +19,16 @@ config/features=PackedStringArray("4.5", "GL Compatibility")
 PlayerStats="*res://scripts/Singleton/PlayerStats.gd"
 ScoreSaver="*res://scripts/Singleton/score_saver.gd"
 AudioManager="*res://scripts/Singleton/Audio_Manager.gd"
+PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
 
 [display]
 
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg")
 
 [global_group]
 
