@@ -11,12 +11,11 @@ func _ready():
 	pass
 
 func _on_menu_button_button_down():
-	AudioManager.play_sfx(AudioManager.click_sfx)
+	AudioManager.play_sfx_on_bus(AudioManager.click_sfx,AudioManager.ui_bus_name)
 	get_tree().change_scene_to_file("res://scenes/menu.tscn")
 
-
 func _on_retry_button_button_down():
-	AudioManager.play_sfx(AudioManager.click_sfx)
+	AudioManager.play_sfx_on_bus(AudioManager.click_sfx,AudioManager.ui_bus_name)
 	get_tree().change_scene_to_file("res://scenes/main.tscn")
 	
 func _on_retry_button_mouse_entered() -> void:

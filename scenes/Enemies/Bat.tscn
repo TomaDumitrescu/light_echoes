@@ -200,7 +200,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_c87qa"]
 radius = 13.670732
 
-[node name="CharacterBody2D" groups=["enemies"] instance=ExtResource("1_mokt8")]
+[node name="CharacterBody2D2" groups=["enemies"] instance=ExtResource("1_mokt8")]
 scale = Vector2(3, 3)
 script = ExtResource("2_c87qa")
 FLY_SPEED = 150.0
@@ -217,6 +217,7 @@ sprite_frames = SubResource("SpriteFrames_uylkx")
 animation = &"attack"
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." index="6"]
+bus = &"SFX"
 
 [node name="Area2D" type="Area2D" parent="." index="7"]
 position = Vector2(2, 0)
@@ -230,13 +231,16 @@ stream = ExtResource("5_bs2en")
 volume_db = 5.725
 pitch_scale = 2.78
 attenuation = 2.378415
+bus = &"SFX"
 
 [node name="AtackSound" type="AudioStreamPlayer2D" parent="." index="9"]
 stream = ExtResource("6_pguf6")
 volume_db = -17.175
 pitch_scale = 3.39
+bus = &"SFX"
 
 [node name="BurnSound" type="AudioStreamPlayer2D" parent="." index="10"]
 stream = ExtResource("7_f54gk")
+bus = &"SFX"
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
