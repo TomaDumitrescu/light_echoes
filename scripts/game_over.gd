@@ -1,6 +1,6 @@
 extends Control
 
-@onready var score_label: Label = $VBoxContainer/ScoreLabel
+@onready var score_label: Label = $ScoreLabel
 @onready var retry_button: Button = $RetryButton
 @onready var menu_button: Button = $MenuButton
 
