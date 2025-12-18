@@ -105,6 +105,7 @@ frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 0)
+scale = Vector2(1, 6)
 shape = SubResource("RectangleShape2D_yvoik")
 
 [node name="DetectionArea" type="Area2D" parent="."]

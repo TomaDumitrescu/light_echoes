@@ -25,20 +25,19 @@ func _process(delta: float) -> void:
 		current_scale = min(current_scale + grow_speed * delta, max_scale)
 	else:
 		current_scale = max(current_scale - grow_speed * delta, min_scale)
-	
 
 	update_animation()
-	
+
 	#height of current frame
 	var tex = sprite.sprite_frames.get_frame_texture("growing", sprite.frame)
 	var sprite_height = tex.get_height()
 	var sprite_width = tex.get_width()
-	
+
 	sprite.scale = Vector2(current_scale, current_scale)	#3 as width of plant
 	sprite.position = Vector2(0, - (sprite_height * (current_scale - 1)) / 2.0) #fixed position
-	
+
 	update_collider(sprite_height, sprite_width, current_scale)
-	
+
 func update_animation():
 	var progress = (current_scale - min_scale) / (max_scale - min_scale)
 	sprite.animation = "growing"
@@ -50,18 +49,16 @@ func update_collider(h: float, w: float, scale: float):
 		coll.disabled = true
 		return
 	else: coll.disabled = false
-	
+
 	if coll.shape is RectangleShape2D:
 		var shape = coll.shape as RectangleShape2D
 		shape.extents = Vector2(w, (h * current_scale)/2.0)
 		coll.shape = shape
 		coll.position = Vector2(0,-shape.extents.y)
 
-
 func _on_detection_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		is_growing = true
-
 
 func _on_detection_area_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):
